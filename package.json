@@ -1,0 +1,20 @@
+{
+  "name": "clean-react-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config ./jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "Meike Hankewicz",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "memfs": "^3.2.2"
+  },
+  "bin": {
+    "clean-react-app": "./index.js"
+  },
+  "type": "module"
+}
