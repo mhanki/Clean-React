@@ -1,0 +1,17 @@
+{
+  "./public/favicon.ico": "favicon",
+  "./public/logo192.png": "logo192",
+  "./public/logo512.png": "logo512",
+  "./public/manifest.json": "manifest",
+  "./public/robots.txt": "robots",
+  "./src/setupTests.js": "setupTest",
+  "./src/reportWebVitals.js": "webVitals",
+  "./src/logo.svg": "logo",
+  "./src/App.test.js": "App.test",
+  "./public/index.html": "index.html",
+  "./src/App.js": "App.js",
+  "./src/index.js": "index.js",
+  "./src/App.css": "App.css",
+  "./src/index.css": "index.css",
+  "./README.md": "README.md"
+}
