@@ -4,8 +4,12 @@ class Directory{
     this.files = {}
   }
 
-  get(){
+  getFiles(){
     return this.files
+  }
+
+  getDir(){
+    return this.dir
   }
 
   set(files){
@@ -21,11 +25,17 @@ class Directory{
   }
 
   setCorrectDirectory(){
-
+    this.dir = {
+      "src": {},
+      "public": {}
+    }
   }
 
   setIncorrectDirectory(){
-    
+    this.dir = {
+      "src": {},
+      "index.js": "content"
+    }
   }
 }
 
