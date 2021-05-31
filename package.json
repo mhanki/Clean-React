@@ -2,14 +2,21 @@
   "name": "clean-react-app",
   "version": "1.0.0",
   "description": "",
+  "author": "Meike Hankewicz",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "test": "jest --config ./jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "Meike Hankewicz",
-  "license": "ISC",
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
     "jest": "^26.6.3",
     "memfs": "^3.2.2"
   },
