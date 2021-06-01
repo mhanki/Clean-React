@@ -6,12 +6,12 @@ const unlink = (path) => dir.remove(path)
 
 const writeFile = (path, data) => new Promise((resolve, reject) => {
   setTimeout(() => {
-    dir.set({...dir.getFiles(), [path]: data})
+    dir.set({...dir.get(), [path]: data})
     resolve()
   })
 })
 
-const existsSync = (path) => dir.getFiles().hasOwnProperty(path)
+const existsSync = (path) => dir.get().hasOwnProperty(path)
 
 fs.unlink = unlink
 fs.writeFile = writeFile

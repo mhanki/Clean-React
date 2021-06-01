@@ -1,41 +1,23 @@
 class Directory{
 
   constructor(){
-    this.files = {}
+    this.dir = {}
   }
 
-  getFiles(){
-    return this.files
-  }
-
-  getDir(){
+  get(){
     return this.dir
   }
 
   set(files){
-    this.files = {...files}
+    this.dir = {...files}
   }
 
   remove(file){
-    delete this.files[file]
+    delete this.dir[file]
   }
 
   reset(){
-    this.files = {}
-  }
-
-  setCorrectDirectory(){
-    this.dir = {
-      "src": {},
-      "public": {}
-    }
-  }
-
-  setIncorrectDirectory(){
-    this.dir = {
-      "src": {},
-      "index.js": "content"
-    }
+    this.dir = {}
   }
 }
 
