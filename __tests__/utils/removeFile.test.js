@@ -4,10 +4,14 @@ import removeFile from '../../src/utils/removeFile.js'
 
 jest.mock('fs')
 
-dir.set({
-  "/app.js": "app content",
-  "/src/whatever": "content"
+beforeAll(() => {
+  dir.set({
+    "/app.js": "app content",
+    "/src/whatever": "content"
+  })
 })
+
+afterAll(() => {dir.reset()})
 
 describe("removeFile", () => {
   it("succesfully removes existing file", () => {
@@ -19,6 +23,6 @@ describe("removeFile", () => {
   it("doesn't remove anything if file doesn't exist", () => {
     expect(fs.existsSync('/wrongFilepath.js')).toBe(false)
     removeFile('/wrongFilepath.js')
-    expect(dir.files).toEqual({ "/src/whatever": "content" })
+    expect(dir.get()).toEqual({ "/src/whatever": "content" })
   })
 })
