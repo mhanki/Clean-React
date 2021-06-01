@@ -13,16 +13,21 @@ const warnUser = (dirs) => {
   dirs.forEach((dir) => console.log(warning('•', dir)))
 }
 
-const getPermission = () => {
+const getPermission = async () => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   })
 
-  return rl.question(warning('Are you sure you want to proceed? (y/n)'), (answer) => {
-    rl.close()
-    return answer.toLowerCase()
-  })
+  function question(query) {
+    return new Promise(resolve => {
+        rl.question(query, resolve)
+    })
+  }
+
+  const answer = await question(warning('Are you sure you want to proceed? (y/n) '))
+  rl.close()
+  return answer.toLowerCase()
 }
 
 export { findMissingDirs , warnUser, getPermission }
