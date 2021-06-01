@@ -1,3 +1,5 @@
+const dirsToCheck = ["src", "public", "node_modules"]
+
 const filesToRemove = {
   "src": [
     "setupTests.js",
@@ -76,4 +78,4 @@ ReactDOM.render(
 }
 ]
 
-export { filesToRemove, filesToRewrite }
+export { filesToRemove, filesToRewrite, dirsToCheck }
