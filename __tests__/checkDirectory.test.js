@@ -1,6 +1,6 @@
 import dir from '../__mocks__/directory.js'
 import * as prompts from '../src/utils/userPrompts'
-import { checkDirectory } from '../src/checkDirectory.js'
+import checkDirectory from '../src/checkDirectory.js'
 
 jest.mock('fs')
 
@@ -19,6 +19,8 @@ const permissionSpy = jest.spyOn(prompts, 'getPermission')
 const warnUserSpy = jest.spyOn(prompts, 'warnUser')
 const findMissingDirsSpy = jest.spyOn(prompts, 'findMissingDirs')
 
+const _givePermission = (input) => permissionSpy.mockImplementationOnce(() => new Promise((resolve, reject) => resolve(input)))
+
 afterEach(() => {
   dir.reset()
   jest.clearAllMocks()
@@ -26,7 +28,7 @@ afterEach(() => {
 
 it("checks the current directory for missing sub-directories", () => {
   dir.set(wrongDir)
-  permissionSpy.mockImplementationOnce(() => 'y')
+  _givePermission('y')
 
   checkDirectory()
 
@@ -43,26 +45,26 @@ it("returns if directory structure is correct", () => {
 
 it("gives a warning when directory structure doesn't match", () => {
   dir.set(wrongDir)
-  permissionSpy.mockImplementationOnce(() => 'y')
+  _givePermission('y')
   
   checkDirectory()
   
   expect(warnUserSpy).toBeCalledTimes(1)
 })
 
-it("proceeds if user gives permission", () => {
+it("proceeds if user gives permission", async () => {
   dir.set(wrongDir)
-  permissionSpy.mockImplementationOnce(() => 'y')
-
-  expect(checkDirectory()).toEqual('proceeding')
+  _givePermission('y')
+  
+  expect(await checkDirectory()).toBe(true)
 })
 
-it("exits if user denies permission to proceed", () => {
+it("exits if user denies permission to proceed", async () => {
   dir.set(wrongDir)
-  permissionSpy.mockImplementationOnce(() => 'n')
+  _givePermission('n')
   
-  expect(checkDirectory()).toEqual('exiting')
+  expect(await checkDirectory()).toBe(false)
 
-  permissionSpy.mockImplementationOnce(() => 'gibberish')
-  expect(checkDirectory()).toEqual('exiting')
+  _givePermission('gibberish')
+  expect(await checkDirectory()).toBe(false)
 })

@@ -1,17 +1,15 @@
 import { getPermission, findMissingDirs, warnUser } from './utils/userPrompts.js'
 
-const checkDirectory = () => {
+const checkDirectory = async () => {
   const missing = findMissingDirs()
 
   if(missing.length == 0){
-    return
+    return true
   }
 
   warnUser(missing)
-  
-  return getPermission() == 'y'
-    ? 'proceeding'
-    : 'exiting'
+
+  return await getPermission()  == 'y'
 }
 
-export { checkDirectory }
+export default checkDirectory
