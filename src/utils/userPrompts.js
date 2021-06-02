@@ -8,12 +8,12 @@ const warning = chalk.yellow
 
 const findMissingDirs = () => dirsToCheck.filter((dir) => !fs.existsSync(dir))
 
-const warnUser = (dirs) => {
-  console.log(warning(`⚠️ ${b('Warning')}: It seems your project is missing the following sub-directories`))
-  dirs.forEach((dir) => console.log(warning('•', dir)))
+const warnUser = (paths, message) => {
+  console.log(warning(`⚠️ ${b('Warning')}: ${message}`))
+  paths.forEach((path) => console.log(warning('•', path)))
 }
 
-const getPermission = async () => {
+const getPermission = async (message) => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -25,9 +25,9 @@ const getPermission = async () => {
     })
   }
 
-  const answer = await question(warning('Are you sure you want to proceed? (y/n) '))
+  const answer = await question(warning(`${message} (y/n) `))
   rl.close()
-  return answer.toLowerCase()
+  return answer.toLowerCase() == 'y'
 }
 
 export { findMissingDirs , warnUser, getPermission }
