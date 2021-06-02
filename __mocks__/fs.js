@@ -13,8 +13,11 @@ const writeFile = (path, data) => new Promise((resolve, reject) => {
 
 const existsSync = (path) => dir.get().hasOwnProperty(path)
 
+const readFileSync = (path) => dir.get()[path]
+
 fs.unlink = unlink
 fs.writeFile = writeFile
 fs.existsSync = existsSync
+fs.readFileSync = readFileSync
 
 export default fs
