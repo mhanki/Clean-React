@@ -28,7 +28,7 @@ afterEach(() => {
 
 it("checks the current directory for missing sub-directories", () => {
   dir.set(wrongDir)
-  _givePermission('y')
+  _givePermission(true)
 
   checkDirectory()
 
@@ -45,7 +45,7 @@ it("returns if directory structure is correct", () => {
 
 it("gives a warning when directory structure doesn't match", () => {
   dir.set(wrongDir)
-  _givePermission('y')
+  _givePermission(true)
   
   checkDirectory()
   
@@ -54,17 +54,14 @@ it("gives a warning when directory structure doesn't match", () => {
 
 it("proceeds if user gives permission", async () => {
   dir.set(wrongDir)
-  _givePermission('y')
+  _givePermission(true)
   
   expect(await checkDirectory()).toBe(true)
 })
 
 it("exits if user denies permission to proceed", async () => {
   dir.set(wrongDir)
-  _givePermission('n')
+  _givePermission(false)
   
-  expect(await checkDirectory()).toBe(false)
-
-  _givePermission('gibberish')
   expect(await checkDirectory()).toBe(false)
 })

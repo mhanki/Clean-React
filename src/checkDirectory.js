@@ -7,9 +7,9 @@ const checkDirectory = async () => {
     return true
   }
 
-  warnUser(missing)
+  warnUser(missing, "It seems your project is missing the following sub-directories")
 
-  return await getPermission()  == 'y'
+  return await getPermission("Are you sure you want to proceed?")
 }
 
 export default checkDirectory
