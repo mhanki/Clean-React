@@ -1,6 +1,6 @@
 import dir from '../../__mocks__/directory.js'
 import fs from '../../__mocks__/fs.js'
-import { removeFile, removeFiles } from '../../src/utils/removeFiles.js'
+import { removeOne, removeAll } from '../../src/utils/removeFiles.js'
 
 jest.mock('fs')
 
@@ -15,11 +15,11 @@ beforeEach(() => {
 
 afterEach(() => dir.reset())
 
-describe("removeFile", () => {
+describe("removeOne", () => {
   it("succesfully removes existing file", () => {
     expect(fs.existsSync("src/app.js")).toBe(true)
 
-    removeFile("src/app.js")
+    removeOne("src/app.js")
 
     expect(fs.existsSync("src/app.js")).toBe(false)
   })
@@ -27,13 +27,13 @@ describe("removeFile", () => {
   it("doesn't remove anything if file doesn't exist", () => {
     expect(fs.existsSync("wrongFilepath.js")).toBe(false)
 
-    removeFile("wrongFilepath.js")
+    removeOne("wrongFilepath.js")
 
     expect(dir.get()).toEqual(directory)
   })
 })
 
-describe("removeFiles", () => {
+describe("removeAll", () => {
   it("succesfully removes all files", async () => {
     const files = {
       "src": ["app.js"],
@@ -41,7 +41,7 @@ describe("removeFiles", () => {
     }
     expect(dir.get()).toEqual(directory)
 
-    removeFiles(files)
+    removeAll(files)
 
     expect(dir.get()).toEqual({})
   })
