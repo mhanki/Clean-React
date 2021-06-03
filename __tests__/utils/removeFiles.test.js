@@ -1,6 +1,6 @@
 import dir from '../../__mocks__/directory.js'
 import fs from '../../__mocks__/fs.js'
-import removeFile from '../../src/utils/removeFile.js'
+import { removeFile } from '../../src/utils/removeFiles.js'
 
 jest.mock('fs')
 
