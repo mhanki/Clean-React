@@ -1,12 +1,9 @@
 import fs from 'fs'
-import { dirsToCheck } from '../files.js'
 import chalk from 'chalk'
 import readline from 'readline'
 
 const b = chalk.bold
 const warning = chalk.yellow
-
-const findMissingDirs = () => dirsToCheck.filter((dir) => !fs.existsSync(dir))
 
 const warnUser = (paths, message) => {
   console.log(warning(`⚠️ ${b('Warning')}: ${message}`))
@@ -30,4 +27,4 @@ const getPermission = async (message) => {
   return answer.toLowerCase() == 'y'
 }
 
-export { findMissingDirs , warnUser, getPermission }
+export { warnUser, getPermission }

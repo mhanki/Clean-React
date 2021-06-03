@@ -1,5 +1,6 @@
 import dir from '../../__mocks__/directory.js'
-import { findMissingDirs, warnUser } from '../../src/utils/userPrompts'
+import { findMissingDirs } from '../../src/utils/checks.js'
+import { warnUser } from '../../src/utils/userPrompts.js'
 
 jest.mock('fs')
 
@@ -11,7 +12,7 @@ describe("userPrompts", () => {
       "src": {},
       "index.js": "content"
     })
-    expect(findMissingDirs()).toEqual(['public', 'node_modules'])
+    expect(findMissingDirs(['public', 'src', 'node_modules'])).toEqual(['public', 'node_modules'])
   })
   
   it("give a warning displaying all missing directories", () => {

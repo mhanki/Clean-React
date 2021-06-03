@@ -1,5 +1,6 @@
 import dir from '../__mocks__/directory.js'
 import * as prompts from '../src/utils/userPrompts'
+import * as checks from '../src/utils/checks.js'
 import checkDirectory from '../src/checkDirectory.js'
 
 jest.mock('fs')
@@ -17,7 +18,7 @@ const correctDir = {
 
 const permissionSpy = jest.spyOn(prompts, 'getPermission')
 const warnUserSpy = jest.spyOn(prompts, 'warnUser')
-const findMissingDirsSpy = jest.spyOn(prompts, 'findMissingDirs')
+const findMissingDirsSpy = jest.spyOn(checks, 'findMissingDirs')
 
 const _givePermission = (input) => permissionSpy.mockImplementationOnce(() => new Promise((resolve, reject) => resolve(input)))
 
