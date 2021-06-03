@@ -231,8 +231,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 const filesToRewrite = {
   "public/index.html": {
-    "oldContent": indexHtml,
-    "newContent": `<!DOCTYPE html>
+    oldContent: indexHtml,
+    newContent: `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
@@ -246,8 +246,8 @@ const filesToRewrite = {
     </html>`
   },
   "src/App.js": {
-    "oldContent": appJs,
-    "newContent": `import React from 'react'
+    oldContent: appJs,
+    newContent: `import React from 'react'
     import './App.css'
     
     function App() {
@@ -261,8 +261,8 @@ const filesToRewrite = {
     export default App`
   },
   "src/index.js": {
-    "oldContent": indexJs,
-    "newContent": `import React from 'react'
+    oldContent: indexJs,
+    newContent: `import React from 'react'
     import ReactDOM from 'react-dom'
     import './index.css'
     import App from './App'
@@ -275,16 +275,16 @@ const filesToRewrite = {
     )`
   },
   "src/App.css": {
-    "oldContent": appCss,
-    "newContent": ``
+    oldContent: appCss,
+    newContent: ``
   },
   "src/index.css": {
-    "oldContent": indexCss,
-    "newContent": ``
+    oldContent: indexCss,
+    newContent: ``
   },
   "README.md": {
-    "oldContent": readme,
-    "newContent": ``
+    oldContent: readme,
+    newContent: ``
   },
 }
 
