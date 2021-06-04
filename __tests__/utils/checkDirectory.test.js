@@ -1,7 +1,7 @@
-import dir from '../__mocks__/directory.js'
-import * as prompts from '../src/utils/userPrompts'
-import * as checks from '../src/utils/checks.js'
-import checkDirectory from '../src/checkDirectory.js'
+import dir from '../../__mocks__/directory.js'
+import * as prompts from '../../src/utils/userPrompts'
+import * as checks from '../../src/utils/searchDirectory.js'
+import checkDirectory from '../../src/utils/checkDirectory.js'
 
 jest.mock('fs')
 

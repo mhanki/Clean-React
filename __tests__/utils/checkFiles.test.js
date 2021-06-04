@@ -1,6 +1,6 @@
 import dir from '../../__mocks__/directory.js'
 import { checkFiles } from '../../src/utils/checkFiles.js'
-import * as checks from '../../src/utils/checks.js'
+import * as checks from '../../src/utils/searchDirectory.js'
 import * as prompts from '../../src/utils/userPrompts.js'
 import * as rewriteFiles from '../../src/utils/rewriteFiles.js'
 

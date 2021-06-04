@@ -1,5 +1,5 @@
 import dir from '../../__mocks__/directory.js'
-import { findMissingDirs, findModifiedFiles } from '../../src/utils/checks.js'
+import { findMissingDirs, findModifiedFiles } from '../../src/utils/searchDirectory.js'
 
 jest.mock('fs')
 

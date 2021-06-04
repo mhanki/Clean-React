@@ -1,6 +1,6 @@
-import { dirsToCheck } from './files.js'
-import { findMissingDirs } from './utils/checks.js'
-import { getPermission, warnUser } from './utils/userPrompts.js'
+import { dirsToCheck } from '../files.js'
+import { findMissingDirs } from './searchDirectory.js'
+import { getPermission, warnUser } from './userPrompts.js'
 
 const checkDirectory = async () => {
   const missing = findMissingDirs(dirsToCheck)

@@ -1,4 +1,4 @@
-import { findModifiedFiles } from './checks.js'
+import { findModifiedFiles } from './searchDirectory.js'
 
 const _filter = (files, filter) => Object.fromEntries(
   Object.entries(files).filter(
