@@ -38,7 +38,8 @@ describe("rewriteAll", () => {
 
     expect(dir.get()).toEqual({ "app.js": "content"})
 
-    await rewriteAll(files)
+    let promiseArray = rewriteAll(files)
+    await Promise.all(promiseArray)
 
     expect(dir.get()).toEqual({
       "index.html": "content",
