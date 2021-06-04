@@ -1,5 +1,5 @@
 import dir from '../../__mocks__/directory.js'
-import { findMissingDirs, getModifiedFiles } from '../../src/utils/checks.js'
+import { findMissingDirs, findModifiedFiles } from '../../src/utils/checks.js'
 
 jest.mock('fs')
 
@@ -30,7 +30,7 @@ describe("findMissingDirs", () => {
   })
 })
 
-describe("getModifiedFiles", () => {
+describe("findModifiedFiles", () => {
   const files = {
     "index.html": { oldContent: "content" },
     "readme.md": { oldContent: "content" },
@@ -51,7 +51,7 @@ describe("getModifiedFiles", () => {
   it("returns an array of modified files", () => {
     dir.set(modifiedDir)
 
-    let modifiedFiles = getModifiedFiles(files)
+    let modifiedFiles = findModifiedFiles(files)
 
     expect(modifiedFiles).toEqual(["index.html", "app.js"])
   })
@@ -59,7 +59,7 @@ describe("getModifiedFiles", () => {
   it("returns an empty array if no files have been modified", () => {
     dir.set(unmodifiedDir)
 
-    let modifiedFiles = getModifiedFiles(files)
+    let modifiedFiles = findModifiedFiles(files)
 
     expect(modifiedFiles).toEqual([])
   })
