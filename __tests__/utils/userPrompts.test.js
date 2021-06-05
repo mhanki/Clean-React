@@ -10,7 +10,7 @@ describe("warnUser", () => {
   it("gives a warning displaying all missing directories", () => {
     const consoleSpy = jest.spyOn(console, 'log')
     warnUser(['src', 'public'])
-    expect(consoleSpy).toBeCalledTimes(4)
+    expect(consoleSpy).toBeCalledTimes(5)
   })
 })
 

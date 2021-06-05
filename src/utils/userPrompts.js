@@ -2,16 +2,21 @@ import chalk from 'chalk'
 import readline from 'readline'
 
 const b = chalk.bold
-const warning = chalk.yellow
-const info = chalk.green
-
-const printMessage = (messages) => {
-  messages.forEach(message => console.log(info(message)))
+const types = {
+  info: chalk.green,
+  warning: chalk.yellow
 }
 
-const warnUser = (paths, message) => {
-  console.log(warning(`⚠️ ${b('Warning')}: ${message}`))
-  paths.forEach((path) => console.log(warning('•', path)))
+const printMessage = (messages, type) => {
+  messages.forEach(message => console.log(types[type](message)))
+}
+
+const warnUser = (paths, message, sign = true) => {
+  const warningSign = `⚠️ ${b('Warning')}:`
+  const printMessage = sign ? `${warningSign} ${message}` : message
+  console.log('')
+  console.log(types.warning(printMessage))
+  paths.forEach((path) => console.log(types.warning('•', path)))
   console.log('')
 }
 
@@ -27,7 +32,7 @@ const getPermission = async (message) => {
     })
   }
 
-  const answer = await question(warning(`${message} (y/n) `))
+  const answer = await question(`${message} (y/n) `)
   rl.close()
   return answer.toLowerCase() == 'y'
 }
