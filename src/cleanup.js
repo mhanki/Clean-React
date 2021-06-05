@@ -5,7 +5,7 @@ import { rewriteAll, rewriteWithPermission } from './utils/rewriteFiles.js'
 
 const _getSkipPermission = (paths) => {
   warnUser(paths, "It seems some project files have already been modified")
-  return getPermission("Do you want to change them all?")
+  return getPermission("Do you want to overwrite them all?")
 }
 
 const cleanup = async (filesToRemove, filesToRewrite) => {
@@ -19,7 +19,7 @@ const cleanup = async (filesToRemove, filesToRewrite) => {
   }
 
   const skipPrompts = await _getSkipPermission(modifiedPaths)
-  const rewriteModified = skipPrompts ? rewriteAll(modifiedFiles) : rewriteWithPermission(modifiedFiles)
+  const rewriteModified = skipPrompts ? rewriteAll(modifiedFiles) : await rewriteWithPermission(modifiedFiles)
 
   return Promise.all([...rewriteModified, ...rewriteUnmodified])
 }

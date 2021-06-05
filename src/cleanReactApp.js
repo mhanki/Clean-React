@@ -4,13 +4,13 @@ import { filesToRemove, filesToRewrite } from './files.js'
 import { cleanup } from './cleanup.js'
 
 const cleanReactApp = async () => {
-  printMessage(["Cleaning...  🧹💨"])
+  printMessage(["Cleaning...  🧹💨"], "info")
 
   const start = await checkDirectory()
 
   if(start){
     await cleanup(filesToRemove, filesToRewrite)
-    printMessage(["✨ All done! ✨", " Happy coding!"])
+    printMessage(["", "✨ All done! ✨", " Happy coding!"], "info")
   }
   
   process.exit()

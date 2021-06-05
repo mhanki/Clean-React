@@ -43,5 +43,5 @@ it("prints start and exit messages", async () => {
 
   await cleanReactApp()
 
-  expect(consoleSpy).toHaveBeenCalledTimes(3)
+  expect(consoleSpy).toHaveBeenCalledTimes(4)
 })
