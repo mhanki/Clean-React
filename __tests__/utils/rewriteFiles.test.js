@@ -1,6 +1,7 @@
 import dir from '../../__mocks__/directory.js'
 import fs from '../../__mocks__/fs.js'
-import { rewriteOne, rewriteAll } from '../../src/utils/rewriteFiles.js'
+import * as prompts from '../../src/utils/userPrompts'
+import { rewriteOne, rewriteAll, rewriteWithPermission } from '../../src/utils/rewriteFiles.js'
 
 jest.mock('fs')
 jest.mock('fs/promises')
@@ -46,5 +47,51 @@ describe("rewriteAll", () => {
       "index.css": "more content",
       "app.js": "updated content"
     })
+  })
+})
+
+describe("rewriteWithPermission", () => {
+  it("rewrites all files if permission is given", async () => {
+    const getPermissionSpy = jest.spyOn(prompts, 'getPermission')
+    getPermissionSpy.mockReturnValue(true)
+
+    const files = {
+      "index.html": { newContent: "content"},
+      "index.css": { newContent: "more content"},
+      "app.js": { newContent: "updated content"}
+    }
+
+    dir.set({ "app.js": "content"})
+  
+    expect(dir.get()).toEqual({ "app.js": "content"})
+  
+    let promiseArray = rewriteWithPermission(files)
+    await Promise.all(promiseArray)
+  
+    expect(dir.get()).toEqual({
+      "index.html": "content",
+      "index.css": "more content",
+      "app.js": "updated content"
+    })
+  })
+
+  it("rewrites no files if permission is denied", async () => {
+    const getPermissionSpy = jest.spyOn(prompts, 'getPermission')
+    getPermissionSpy.mockReturnValue(false)
+
+    const files = {
+      "index.html": { newContent: "content"},
+      "index.css": { newContent: "more content"},
+      "app.js": { newContent: "updated content"}
+    }
+
+    dir.set({ "app.js": "content"})
+  
+    expect(dir.get()).toEqual({ "app.js": "content"})
+  
+    let promiseArray = rewriteWithPermission(files)
+    await Promise.all(promiseArray)
+  
+    expect(dir.get()).toEqual({ "app.js": "content"})
   })
 })

@@ -1,4 +1,5 @@
 import { writeFile } from 'fs/promises'
+import { warnUser, getPermission } from './userPrompts.js'
 
 const rewriteOne = (path, data) => writeFile(path, data)
 
@@ -11,4 +12,10 @@ const rewriteAll = (files) => {
   }
 }
 
-export { rewriteOne , rewriteAll }
+const rewriteWithPermission = (files) => Object.entries(files).map(async ([path, content]) => {
+  warnUser([path], "The following file seems to have been modified already")
+  let permission = await getPermission("Are you sure you want to overwrite it?")
+  if(permission){ return rewriteOne(path, content.newContent) }
+})
+
+export { rewriteOne , rewriteAll, rewriteWithPermission }
