@@ -1,9 +1,13 @@
-import fs from 'fs'
 import chalk from 'chalk'
 import readline from 'readline'
 
 const b = chalk.bold
 const warning = chalk.yellow
+const info = chalk.green
+
+const printMessage = (messages) => {
+  messages.forEach(message => console.log(info(message)))
+}
 
 const warnUser = (paths, message) => {
   console.log(warning(`⚠️ ${b('Warning')}: ${message}`))
@@ -27,4 +31,4 @@ const getPermission = async (message) => {
   return answer.toLowerCase() == 'y'
 }
 
-export { warnUser, getPermission }
+export { warnUser, getPermission, printMessage }
