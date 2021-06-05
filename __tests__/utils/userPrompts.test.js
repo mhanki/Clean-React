@@ -1,23 +1,31 @@
 import dir from '../../__mocks__/directory.js'
-import { findMissingDirs } from '../../src/utils/searchDirectory.js'
-import { warnUser } from '../../src/utils/userPrompts.js'
+import { warnUser, getPermission } from '../../src/utils/userPrompts.js'
 
 jest.mock('fs')
+jest.mock('readline')
 
 afterEach(() => dir.reset())
 
-describe("userPrompts", () => {
-  it("return an array of missing sub-directories", () => {
-    dir.set({
-      "src": {},
-      "index.js": "content"
-    })
-    expect(findMissingDirs(['public', 'src', 'node_modules'])).toEqual(['public', 'node_modules'])
-  })
-  
-  it("give a warning displaying all missing directories", () => {
+describe("warnUser", () => {
+  it("gives a warning displaying all missing directories", () => {
     const consoleSpy = jest.spyOn(console, 'log')
     warnUser(['src', 'public'])
-    expect(consoleSpy).toBeCalledTimes(3)
+    expect(consoleSpy).toBeCalledTimes(4)
+  })
+})
+
+describe("getPermission", () => {  
+  it("returns true if user answers 'y'", async () => {
+    let permission = await getPermission('Permission granted?')
+
+    expect(permission).toBe(true) // input 'y
+  })
+
+  it("returns false if user answers anything else", async () => {
+    let permission = await getPermission('Permission granted?')
+    expect(permission).toBe(false) // input 'n'
+
+    permission = await getPermission('Permission granted?')
+    expect(permission).toBe(false) // input 'gibberish'
   })
 })

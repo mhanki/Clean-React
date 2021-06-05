@@ -12,6 +12,7 @@ const printMessage = (messages) => {
 const warnUser = (paths, message) => {
   console.log(warning(`⚠️ ${b('Warning')}: ${message}`))
   paths.forEach((path) => console.log(warning('•', path)))
+  console.log('')
 }
 
 const getPermission = async (message) => {
