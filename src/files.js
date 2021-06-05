@@ -230,69 +230,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 `
 
 const filesToRewrite = {
-  "public/index.html": {
-    oldContent: indexHtml,
-    newContent: `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title></title>
-      </head>
-      <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root"></div>
-      </body>
-    </html>`
-  },
-  "src/App.js": {
-    oldContent: appJs,
-    newContent: `import React from 'react'
-    import './App.css'
-    
-    function App() {
-      return (
-        <div>
-          <p>Clean React App</p>
-        </div>
-      )
-    }
-    
-    export default App`
-  },
-  "src/index.js": {
-    oldContent: indexJs,
-    newContent: `import React from 'react'
-    import ReactDOM from 'react-dom'
-    import './index.css'
-    import App from './App'
-    
-    ReactDOM.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>,
-      document.getElementById('root')
-    )`
-  },
-  "src/App.css": {
-    oldContent: appCss,
-    newContent: ``
-  },
-  "src/index.css": {
-    oldContent: indexCss,
-    newContent: ``
-  },
-  "README.md": {
-    oldContent: readme,
-    newContent: ``
-  },
-}
-
-/* const filesToRewrite = [
-{
-  "filePath": "public/index.html",
-  "content": 
-`<!DOCTYPE html>
+"public/index.html": {
+  oldContent: indexHtml,
+  newContent: `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -305,10 +245,9 @@ const filesToRewrite = {
   </body>
 </html>`
 },
-{
-  "filePath": "src/App.js",
-  "content": 
-`import React from 'react'
+"src/App.js": {
+  oldContent: appJs,
+  newContent: `import React from 'react'
 import './App.css'
 
 function App() {
@@ -321,10 +260,9 @@ function App() {
 
 export default App`
 },
-{
-  "filePath": "src/index.js",
-  "content":
-`import React from 'react'
+"src/index.js": {
+  oldContent: indexJs,
+  newContent: `import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
@@ -336,18 +274,18 @@ ReactDOM.render(
   document.getElementById('root')
 )`
 },
-{
-  "filePath": "src/App.css",
-  "content": ''
+"src/App.css": {
+  oldContent: appCss,
+  newContent: ``
 },
-{
-  "filePath": "src/index.css",
-  "content": ''
+"src/index.css": {
+  oldContent: indexCss,
+  newContent: ``
 },
-{
-  "filePath": "README.md",
-  "content": ''
+"README.md": {
+  oldContent: readme,
+  newContent: ``
+},
 }
-] */
 
 export { filesToRemove, filesToRewrite, dirsToCheck }
