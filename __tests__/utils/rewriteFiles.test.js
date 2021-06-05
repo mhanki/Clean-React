@@ -65,7 +65,7 @@ describe("rewriteWithPermission", () => {
   
     expect(dir.get()).toEqual({ "app.js": "content"})
   
-    let promiseArray = rewriteWithPermission(files)
+    let promiseArray = await rewriteWithPermission(files)
     await Promise.all(promiseArray)
   
     expect(dir.get()).toEqual({
@@ -89,7 +89,7 @@ describe("rewriteWithPermission", () => {
   
     expect(dir.get()).toEqual({ "app.js": "content"})
   
-    let promiseArray = rewriteWithPermission(files)
+    let promiseArray = await rewriteWithPermission(files)
     await Promise.all(promiseArray)
   
     expect(dir.get()).toEqual({ "app.js": "content"})

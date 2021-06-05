@@ -12,10 +12,16 @@ const rewriteAll = (files) => {
   }
 }
 
-const rewriteWithPermission = (files) => Object.entries(files).map(async ([path, content]) => {
-  warnUser([path], "The following file seems to have been modified already")
-  let permission = await getPermission("Are you sure you want to overwrite it?")
-  if(permission){ return rewriteOne(path, content.newContent) }
-})
+const rewriteWithPermission = async (files) => {
+  let promises = []
+
+  for(let [path, content] of Object.entries(files)){
+    warnUser([path], "The following file seems to have been modified before", false)
+    let permission = await getPermission("Are you sure you want to overwrite it?")
+    if(permission){ promises.push(rewriteOne(path, content.newContent)) }
+  }
+
+  return promises
+}
 
 export { rewriteOne , rewriteAll, rewriteWithPermission }
