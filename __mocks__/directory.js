@@ -19,6 +19,7 @@ class Directory{
   reset(){
     this.dir = {}
   }
+  
 }
 
 export default new Directory()

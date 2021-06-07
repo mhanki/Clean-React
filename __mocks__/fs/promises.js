@@ -4,7 +4,7 @@ const writeFile = (path, data) => new Promise((resolve, reject) => {
   setTimeout(() => {
     dir.set({...dir.get(), [path]: data})
     resolve()
-  }, 500)
+  }, 100)
 })
 
 export { writeFile }

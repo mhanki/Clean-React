@@ -44,6 +44,12 @@ const rewrite = {
   }
 }
 
+const unmodifiedFile = {
+  "app.js": {
+    oldContent: "content",
+    newContent: "new content"
+}}
+
 beforeEach(() => {
   dir.reset()
   dir.set(directory)
@@ -69,23 +75,14 @@ it("checks for modified files", async () => {
 })
 
 it('immediately starts rewriting unmodified files', async () => {
-  await cleanup(remove, {"app.js": {
-    oldContent: "content",
-    newContent: "new content"
-  }})
+  await cleanup(remove, unmodifiedFile)
 
   expect(rewriteAllSpy).toHaveBeenCalledTimes(1)
-  expect(rewriteAllSpy).toHaveBeenCalledWith({"app.js": {
-    oldContent: "content",
-    newContent: "new content"
-  }})
+  expect(rewriteAllSpy).toHaveBeenCalledWith(unmodifiedFile)
 })
 
 it('stops when there are no modified files', async () => {
-  await cleanup(remove, {"app.js": {
-    oldContent: "content",
-    newContent: "new content"
-  }})
+  await cleanup(remove, unmodifiedFile)
 
   expect(rewriteAllSpy).toHaveBeenCalledTimes(1)
   expect(permissionSpy).toHaveBeenCalledTimes(0)
@@ -97,7 +94,7 @@ it('stops when there are no modified files', async () => {
 
 it("checks if user wants to rewrite all modified files", async () => {
   permissionSpy.mockReturnValueOnce(new Promise(
-    (resolve, reject) => setTimeout(() => resolve(true), 500)
+    (resolve, reject) => resolve(true)
   ))
 
   await cleanup(remove, rewrite)
