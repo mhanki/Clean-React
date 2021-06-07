@@ -2,12 +2,12 @@
 
 Clean React is a CLI tool that removes and modifies some of the boilerplate files and code that are being generated when initiating a new project with [Create React App](https://create-react-app.dev/).
 
-The tool is designed to provide a clean and minimalistic code base to your new project. It will first check to make sure you actually are in a Create React App project and then proceed to delete and overwrite [these files](https://github.com/mhanki/clean-react-app#modified-files).
+The tool is designed to provide a clean and minimalistic code base to your new project. It will first check to make sure you actually are in a Create React App project and then proceed to delete and overwrite [these files](https://github.com/mhanki/clean-react#modified-files).
 
 ## Installation
 To install the package on your system, use global npm install
 ```
-npm install -g clean-react-app
+npm install -g clean-react
 ```  
 
 ## Usage
@@ -20,7 +20,7 @@ Alternatively you can also use [npx](https://docs.npmjs.com/cli/v7/commands/npx)
 npx clean-react
 ```  
 
-If you already modified one or more of the files that Clean React [tries to rewrite](https://github.com/mhanki/clean-react-app#files-that-will-be-modified), it will prompt you with a warning and ask for your permission to proceed. Since the intended use of the app is to clean out the project *before* you start with your own code though, just beware that it **will delete** [these files](https://github.com/mhanki/clean-react-app#files-that-will-be-removed) without giving extra warnings.  
+If you already modified one or more of the files that Clean React [tries to rewrite](https://github.com/mhanki/clean-react#files-that-will-be-modified), it will prompt you with a warning and ask for your permission to proceed. Since the intended use of the app is to clean out the project *before* you start with your own code though, just beware that it **will delete** [these files](https://github.com/mhanki/clean-react#files-that-will-be-removed) without giving extra warnings.  
 
 ## Modified Files
 ### Files that will be removed:
