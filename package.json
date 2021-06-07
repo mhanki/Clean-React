@@ -5,10 +5,17 @@
   "author": "Meike Hankewicz",
   "license": "ISC",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/mhanki/Clean-React.git"
+    "type": "git",
+    "url": "https://github.com/mhanki/Clean-React.git"
   },
-  "keywords": ["javascript", "react", "create-react-app", "cli", "node", "tool"],
+  "keywords": [
+    "javascript",
+    "react",
+    "create-react-app",
+    "cli",
+    "node",
+    "tool"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "jest --config ./jest.config.json",
@@ -23,8 +30,7 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
-    "jest": "^26.6.3",
-    "memfs": "^3.2.2"
+    "jest": "^26.6.3"
   },
   "bin": {
     "clean-react": "./index.js"
