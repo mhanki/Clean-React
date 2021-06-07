@@ -1,18 +1,20 @@
 import chalk from 'chalk'
 import readline from 'readline'
+import { SYMBOLS } from '../config.js'
 
 const b = chalk.bold
 const types = {
   info: chalk.green,
   warning: chalk.yellow
 }
+const { icon, WARNSIGN } = SYMBOLS
 
 const printMessage = (messages, type) => {
   messages.forEach(message => console.log(types[type](message)))
 }
 
 const warnUser = (paths, message, sign = true) => {
-  const warningSign = `⚠️ ${b('Warning')}:`
+  const warningSign = `${icon(WARNSIGN)} ${b('Warning')}:`
   const printMessage = sign ? `${warningSign} ${message}` : message
   console.log('')
   console.log(types.warning(printMessage))

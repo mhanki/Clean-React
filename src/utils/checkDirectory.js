@@ -1,4 +1,4 @@
-import { dirsToCheck } from '../files.js'
+import { dirsToCheck } from '../config.js'
 import { findMissingDirs } from './searchDirectory.js'
 import { getPermission, warnUser } from './userPrompts.js'
 

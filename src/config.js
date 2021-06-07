@@ -1,3 +1,10 @@
+const SYMBOLS = {
+  CLEANING: '🧹💨',
+  STARS: '✨',
+  WARNSIGN: '⚠️',
+  icon: (symbol) => process.platform === "win32" ? '' : symbol
+}
+
 const dirsToCheck = ["src", "public", "node_modules"]
 
 const filesToRemove = {
@@ -288,4 +295,4 @@ ReactDOM.render(
 },
 }
 
-export { filesToRemove, filesToRewrite, dirsToCheck }
+export { filesToRemove, filesToRewrite, dirsToCheck, SYMBOLS }
