@@ -1,7 +1,7 @@
 {
   "name": "clean-react-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A CLI tool to clean out boilerplate code from create-react-app",
   "author": "Meike Hankewicz",
   "license": "ISC",
   "main": "index.js",
