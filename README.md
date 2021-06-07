@@ -36,7 +36,7 @@ If you already modified one or more of the files that Clean React App [tries to 
 ### Files that will be modified:
 Clean React App will empty the following files:
 - index.css
-- app.css
+- App.css
 - README.md
 
 And replace these files with the following content:  
