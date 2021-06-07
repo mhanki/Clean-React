@@ -20,8 +20,6 @@ const permissionSpy = jest.spyOn(prompts, 'getPermission')
 const warnUserSpy = jest.spyOn(prompts, 'warnUser')
 const findMissingDirsSpy = jest.spyOn(checks, 'findMissingDirs')
 
-const _givePermission = (input) => permissionSpy.mockImplementationOnce(() => new Promise((resolve, reject) => resolve(input)))
-
 afterEach(() => {
   dir.reset()
   jest.clearAllMocks()
@@ -29,7 +27,7 @@ afterEach(() => {
 
 it("checks the current directory for missing sub-directories", () => {
   dir.set(wrongDir)
-  _givePermission(true)
+  permissionSpy.mockReturnValueOnce(true)
 
   checkDirectory()
 
@@ -46,7 +44,7 @@ it("returns if directory structure is correct", () => {
 
 it("gives a warning when directory structure doesn't match", () => {
   dir.set(wrongDir)
-  _givePermission(true)
+  permissionSpy.mockReturnValueOnce(true)
   
   checkDirectory()
   
@@ -55,14 +53,14 @@ it("gives a warning when directory structure doesn't match", () => {
 
 it("proceeds if user gives permission", async () => {
   dir.set(wrongDir)
-  _givePermission(true)
+  permissionSpy.mockReturnValueOnce(true)
   
   expect(await checkDirectory()).toBe(true)
 })
 
 it("exits if user denies permission to proceed", async () => {
   dir.set(wrongDir)
-  _givePermission(false)
+  permissionSpy.mockReturnValueOnce(false)
   
   expect(await checkDirectory()).toBe(false)
 })
