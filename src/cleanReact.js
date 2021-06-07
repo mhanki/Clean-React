@@ -3,7 +3,7 @@ import checkDirectory from './utils/checkDirectory.js'
 import { filesToRemove, filesToRewrite } from './files.js'
 import { cleanup } from './cleanup.js'
 
-const cleanReactApp = async () => {
+const cleanReact = async () => {
   printMessage(["Cleaning...  🧹💨"], "info")
 
   const start = await checkDirectory()
@@ -16,4 +16,4 @@ const cleanReactApp = async () => {
   process.exit()
 }
 
-export default cleanReactApp
+export default cleanReact

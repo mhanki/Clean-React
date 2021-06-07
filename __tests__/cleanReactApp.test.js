@@ -1,5 +1,5 @@
 import dir from '../__mocks__/directory.js'
-import cleanReactApp from '../src/cleanReactApp.js'
+import cleanReact from '../src/cleanReact.js'
 import * as checkDirectory from '../src/utils/checkDirectory.js'
 import * as cleanup from '../src/cleanup.js'
 
@@ -21,7 +21,7 @@ afterEach(() => {
 it("exits if directory check fails", async () => {
   checkDirectorySpy.mockImplementationOnce(() => false)
 
-  await cleanReactApp()
+  await cleanReact()
 
   expect(cleanupSpy).toHaveBeenCalledTimes(0)
   expect(mockExit).toHaveBeenCalledTimes(1)
@@ -30,7 +30,7 @@ it("exits if directory check fails", async () => {
 it("starts cleanup if directory check succeeds", async () => {
   checkDirectorySpy.mockImplementationOnce(() => true)
 
-  await cleanReactApp()
+  await cleanReact()
 
   expect(checkDirectorySpy).toHaveBeenCalledTimes(1)
   expect(cleanupSpy).toHaveBeenCalledTimes(1)
@@ -41,7 +41,7 @@ it("prints start and exit messages", async () => {
   const consoleSpy = jest.spyOn(console, 'log')
   checkDirectorySpy.mockImplementationOnce(() => true)
 
-  await cleanReactApp()
+  await cleanReact()
 
   expect(consoleSpy).toHaveBeenCalledTimes(4)
 })

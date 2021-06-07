@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import cleanReactApp from './src/cleanReactApp.js'
+import cleanReact from './src/cleanReact.js'
 
-cleanReactApp()
+cleanReact()
