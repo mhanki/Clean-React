@@ -41,7 +41,7 @@ Clean React App will empty the following files:
 
 And replace these files with the following content:  
   
-- **index.html**
+- index.html
 ```js
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +57,7 @@ And replace these files with the following content:
 </html>
 ```
 
-- **index.js**
+- index.js
 ```js
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -72,7 +72,7 @@ ReactDOM.render(
 )
 ```
 
-- **App.js**
+- App.js
 ```js
 import React from 'react'
 import './App.css'
