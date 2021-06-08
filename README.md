@@ -7,7 +7,7 @@ The tool is designed to provide a clean and minimalistic code base to your new p
 ## Installation
 
 ```
-npm install -g clean-react
+npm install -g @mhanki/clean-react
 ```  
 
 ## Usage
