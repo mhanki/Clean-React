@@ -17,7 +17,7 @@ clean-react
 ```
 
 
-If you already modified one or more of the files that Clean React [tries to rewrite](https://github.com/mhanki/clean-react#files-that-will-be-modified), it will prompt you with a warning and ask for your permission to proceed. Since the intended use of the app is to clean out the project *before* you start with your own code though, just beware that it **will delete** [these files](https://github.com/mhanki/clean-react#files-that-will-be-removed) without giving extra warnings.  
+If you already modified one or more of the files that Clean React [tries to rewrite](https://github.com/mhanki/clean-react#files-that-will-be-modified), it will prompt you with a warning and ask for your permission to proceed. Since the intended use of the app is to clean out the project *before* you start with your own code, just beware that it will delete [these files](https://github.com/mhanki/clean-react#files-that-will-be-removed) without giving extra warnings.  
 
 ## Modified Files
 ### Files that will be removed:
