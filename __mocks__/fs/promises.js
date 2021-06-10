@@ -1,4 +1,4 @@
-import dir from '../directory'
+import dir from '../directory.js'
 
 const writeFile = (path, data) => new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -7,4 +7,15 @@ const writeFile = (path, data) => new Promise((resolve, reject) => {
   }, 100)
 })
 
-export { writeFile }
+const readdir = (directory) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(Object.keys(dir.get()).map((path) =>  {
+      const [dirName, fileName] = path.split('/')
+      if(dirName == directory){
+        return fileName
+      }
+    }).filter(entry => entry != undefined))
+  }, 100)
+})
+
+export { writeFile, readdir }
