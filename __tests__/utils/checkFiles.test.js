@@ -1,5 +1,5 @@
 import dir from '../../__mocks__/directory.js'
-import { checkFiles } from '../../src/utils/checkFiles.js'
+import { checkFiles, checkFiletype } from '../../src/utils/checkFiles.js'
 
 jest.mock('fs')
 jest.mock('fs/promises')
@@ -14,6 +14,49 @@ const files = {
   "readme.md": { oldContent: "content", newContent: "new content" },
   "app.js": { oldContent: "content", newContent: "new content" }
 }
+
+describe("checkFiletype", () => {
+  const files = {
+    "src/app.js": {},
+    "readme.md": {},
+    "src/index.js": {},
+    "src/something.md": {}
+  }
+
+  const jsDir = {
+    "src/app.js": "",
+    "readme.md": "",
+    "src/index.js": "",
+    "src/something.md": ""
+  }
+
+  const tsDir = {
+    "src/app.tsx": "",
+    "readme.md": "",
+    "src/index.tsx": "",
+    "src/something.md": ""
+  }
+
+  it("checks if the project contains .js or .tsx files", async () => {
+    dir.set(tsDir)
+    let converted = await checkFiletype(files)
+    expect(converted).toEqual({
+      "src/app.tsx": {},
+      "readme.md": {},
+      "src/index.tsx": {},
+      "src/something.md": {}
+    })
+
+    dir.set(jsDir)
+    converted = await checkFiletype(files)
+    expect(converted).toEqual({
+      "src/app.js": {},
+      "readme.md": {},
+      "src/index.js": {},
+      "src/something.md": {}
+    })
+  })
+})
 
 describe("checkFiles", () => {
   dir.set(modifiedDir)

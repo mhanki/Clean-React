@@ -1,5 +1,5 @@
 import { removeAll } from './utils/removeFiles.js'
-import { checkFiles } from './utils/checkFiles.js'
+import { checkFiles, checkFiletype } from './utils/checkFiles.js'
 import { warnUser, getPermission } from './utils/userPrompts.js'
 import { rewriteAll, rewriteWithPermission } from './utils/rewriteFiles.js'
 
@@ -9,6 +9,7 @@ const _getSkipPermission = (paths) => {
 }
 
 const cleanup = async (filesToRemove, filesToRewrite) => {
+  filesToRewrite = await checkFiletype(filesToRewrite)
   const [unmodifiedFiles, [modifiedPaths, modifiedFiles]] = checkFiles(filesToRewrite)
 
   const rewriteUnmodified = rewriteAll(unmodifiedFiles)
