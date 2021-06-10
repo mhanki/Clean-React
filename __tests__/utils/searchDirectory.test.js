@@ -17,7 +17,7 @@ describe("findMissingDirs", () => {
     expect(missingDirs).toEqual(['public', 'node_modules'])
   })
   
-  it("returns empty array if no directories are missing", () => {
+  it("returns an empty array if no directories are missing", () => {
     dir.set({
       "src": {},
       "public": {},
@@ -61,6 +61,19 @@ describe("findModifiedFiles", () => {
 
     let modifiedFiles = findModifiedFiles(files)
 
+    expect(modifiedFiles).toEqual([])
+  })
+
+  it("successfully checks an array of original content", () => {
+    dir.set(unmodifiedDir)
+
+    const files = {
+      "index.html": { oldContent: "content" },
+      "readme.md": { oldContent: ["content", "ts content"] },
+      "app.js": { oldContent: "content" }
+    }
+
+    let modifiedFiles = findModifiedFiles(files)
     expect(modifiedFiles).toEqual([])
   })
 })

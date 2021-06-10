@@ -9,10 +9,18 @@ const modifiedDir = {
   "readme.md": "content"
 }
 
-const files = {
-  "index.html": { oldContent: "content", newContent: "new content" },
-  "readme.md": { oldContent: "content", newContent: "new content" },
-  "app.js": { oldContent: "content", newContent: "new content" }
+const jsDir = {
+  "src/app.js": "",
+  "readme.md": "",
+  "src/index.js": "",
+  "src/something.md": ""
+}
+
+const tsDir = {
+  "src/app.tsx": "",
+  "readme.md": "",
+  "src/index.tsx": "",
+  "src/something.md": ""
 }
 
 describe("checkFiletype", () => {
@@ -23,22 +31,9 @@ describe("checkFiletype", () => {
     "src/something.md": {}
   }
 
-  const jsDir = {
-    "src/app.js": "",
-    "readme.md": "",
-    "src/index.js": "",
-    "src/something.md": ""
-  }
-
-  const tsDir = {
-    "src/app.tsx": "",
-    "readme.md": "",
-    "src/index.tsx": "",
-    "src/something.md": ""
-  }
-
   it("checks if the project contains .js or .tsx files", async () => {
     dir.set(tsDir)
+
     let converted = await checkFiletype(files)
     expect(converted).toEqual({
       "src/app.tsx": {},
@@ -48,6 +43,7 @@ describe("checkFiletype", () => {
     })
 
     dir.set(jsDir)
+
     converted = await checkFiletype(files)
     expect(converted).toEqual({
       "src/app.js": {},
@@ -60,6 +56,13 @@ describe("checkFiletype", () => {
 
 describe("checkFiles", () => {
   dir.set(modifiedDir)
+
+  const files = {
+    "index.html": { oldContent: "content", newContent: "new content" },
+    "readme.md": { oldContent: "content", newContent: "new content" },
+    "app.js": { oldContent: "content", newContent: "new content" }
+  }
+ 
   const [unmodified, [modifiedPaths, modifiedFiles]] = checkFiles(files)
 
   it("returns array of modified file paths", () => {
