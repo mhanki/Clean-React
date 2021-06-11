@@ -4,6 +4,8 @@ Clean React is a CLI tool that removes and modifies some of the boilerplate file
 
 The tool is designed to provide a clean and minimalistic code base to your new project. It will first check to make sure you actually are in a Create React App project and then proceed to delete and overwrite [these files](https://github.com/mhanki/clean-react#modified-files).
 
+Clean React supports both default Create React App templates ([JavaScript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template) and [TypeScript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template-typescript)). It tries to first determine the chosen file type for components (.js, .ts, .jsx, .tsx) and adjusts the rewrite process accordingly, to keep the files in the same format.
+
 ## Installation
 
 ```
@@ -20,6 +22,8 @@ clean-react
 If you already modified one or more of the files that Clean React [tries to rewrite](https://github.com/mhanki/clean-react#files-that-will-be-modified), it will prompt you with a warning and ask for your permission to proceed. Since the intended use of the app is to clean out the project *before* you start with your own code, just beware that it will delete [these files](https://github.com/mhanki/clean-react#files-that-will-be-removed) without giving extra warnings.  
 
 ## Modified Files
+All of the following JavaScript files can also be of type  **.ts**, **.tsx** or **.jsx**.
+
 ### Files that will be removed:
 
 - favicon.ico
