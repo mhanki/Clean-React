@@ -96,6 +96,33 @@ function App() {
 
 export default App;
 `
+const appJsTs = `import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+`
 const indexJs = `import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -303,7 +330,7 @@ const filesToRewrite = {
 </html>`
 },
 "src/App.js": {
-  oldContent: appJs,
+  oldContent: [appJs, appJsTs],
   newContent: `import React from 'react'
 import './App.css'
 
