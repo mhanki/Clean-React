@@ -9,6 +9,7 @@ jest.mock('fs')
 jest.mock('fs/promises')
 
 const removeAllSpy = jest.spyOn(removeFiles, 'removeAll')
+const checkFiletypeSpy = jest.spyOn(checkFiles, 'checkFiletype')
 const checkFilesSpy = jest.spyOn(checkFiles, 'checkFiles')
 const rewriteAllSpy = jest.spyOn(rewriteFiles, 'rewriteAll')
 const permissionSpy = jest.spyOn(prompts, 'getPermission')
@@ -63,6 +64,15 @@ it("removes all files", async () => {
 
   expect(removeAllSpy).toHaveBeenCalledTimes(1)
   expect(removeAllSpy).toHaveBeenCalledWith(remove)
+})
+
+it("checks the type extension", async () => {
+  permissionSpy.mockReturnValueOnce(true)
+  checkFiletypeSpy.mockReturnValueOnce(new Promise((resolve) => resolve(rewrite)))
+
+  await cleanup(remove, rewrite)
+
+  expect(checkFiletypeSpy).toHaveBeenCalledTimes(1)
 })
 
 it("checks for modified files", async () => {
