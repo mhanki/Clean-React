@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/mhanki/clean-reactmaster/assets/logo.png" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/mhanki/Clean-React/master/assets/logo.png" /></p>
 <br>
 
 # Clean React
