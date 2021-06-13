@@ -1,3 +1,6 @@
+<p align="center"><img src="https://github.com/mhanki/clean-reactmaster/assets/logo.png" /></p>
+<br>
+
 # Clean React
 
 Clean React is a CLI tool that removes and modifies some of the boilerplate files and code that are being generated when initiating a new project with [Create React App](https://create-react-app.dev/).
