@@ -1,6 +1,6 @@
 ---
 name: Other concerns
-about: ''
+about: 'For any other concerns'
 title: Other concerns
 labels: ''
 assignees: ''
