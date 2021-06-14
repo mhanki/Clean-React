@@ -1,6 +1,6 @@
 {
   "name": "@mhanki/clean-react",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A CLI tool to clean out boilerplate code from create-react-app",
   "author": "Meike Hankewicz",
   "license": "MIT",
