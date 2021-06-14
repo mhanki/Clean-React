@@ -1,9 +1,9 @@
 ---
 name: Other concerns
-about: Use this template for other concerns.
-title: ''
-labels: 
+about: ''
+title: Other concerns
+labels: ''
+assignees: ''
 ---
 
-
-**Other concerns**
+If you have any general questions, please add them to the repository's [discussion tab](https://github.com/mhanki/Clean-React/discussions).
