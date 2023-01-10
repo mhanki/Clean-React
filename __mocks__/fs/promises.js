@@ -18,4 +18,16 @@ const readdir = (directory) => new Promise((resolve, reject) => {
   }, 100)
 })
 
-export { writeFile, readdir }
+
+const readFile = (path) => new Promise((resolve, reject) => {
+    const keys = path.split('/').splice(6);
+    let obj = dir.get();
+
+    for(let key of keys) {
+      obj = obj[key]
+    }
+
+    resolve(obj)
+})
+
+export { writeFile, readdir, readFile }
