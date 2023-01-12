@@ -9,12 +9,8 @@ const writeFile = (path, data) => new Promise((resolve, reject) => {
 
 const readdir = (directory) => new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve(Object.keys(dir.get()).map((path) =>  {
-      const [dirName, fileName] = path.split('/')
-      if(dirName == directory){
-        return fileName
-      }
-    }).filter(entry => entry != undefined))
+    const obj = dir.getOne(directory);
+    resolve(Object.keys(obj));
   }, 100)
 })
 

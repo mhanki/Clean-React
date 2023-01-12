@@ -46,22 +46,40 @@ describe('Validator.changedFiles', () => {
   it('returns an array of files with different content', async () => {
     dir.set({
       "src": {
-        "App.js": "content",
-        "App.css": "same content",
-        "templates": {
-          "JS": {
-            "src": {
-              "App.js": "modified content",
-              "App.css": "same content",
-            }
-          }
-        }
+        "App.js": "modified content",
+        "App.css": "same content"
       }
     });
 
+    const templates = [
+      {
+        "filename": "templates/JS/src/App.js",
+        "content": "content"
+      },
+      {
+        "filename": "templates/JS/src/App.css",
+        "content": "same content"
+      },
+    ];
+    
     const filesToCheck = ['src/App.js', 'src/App.css'];
-    const changedFiles = await FileValidator.changedFiles('/templates/JS', filesToCheck);
+    const changedFiles = await FileValidator.changedFiles(templates, filesToCheck);
 
     expect(changedFiles).toEqual(['src/App.js']);
+  })
+})
+
+describe('Validator.determineLanguage', () => {
+  it('returns sourcecode language', async () => {
+    dir.set({
+      "src": {
+        "App.tsx": "content",
+        "index.ts": "content"
+      }
+    })
+
+    const language = await FileValidator.determineLanguage('src');
+    
+    expect(language).toEqual('TS');
   })
 })
