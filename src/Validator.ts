@@ -1,34 +1,12 @@
 import fs from 'fs';
-import * as fsPromises from 'fs/promises';
+import { readFile, readdir } from 'fs/promises'
 import path from 'path';
+import { FileInfo } from './FileInfo';
 
 export class Validator {
   findMissingDirs = (dirs: string[]): string[] => dirs.filter(
     (dir: string) => !fs.existsSync(dir)
   );
-
-  // findModifiedFiles
-  getFilePaths = (dirPath: string): string[] => {
-    let paths: string[] = [];
-
-    const _getPaths = (dirPath: string): void => {
-      const filesInDirectory = fs.readdirSync(dirPath);
-    
-      for(const file of filesInDirectory) {
-        const filePath = path.join(dirPath, file);
-    
-        if(fs.statSync(filePath).isDirectory()) {
-            _getPaths(filePath);
-        } else {
-            paths.push(filePath);
-        }
-      }
-    }
-
-    _getPaths(dirPath);
-  
-    return paths;
-  }
 
   /**
    * @param targetDir Path to the directory that should be searched
@@ -39,33 +17,36 @@ export class Validator {
     return !fs.existsSync(filePath);
   });
 
-  /**
-   * @param templateDir Path to the directory that contains the templates to compare against
-   * @param files Array of relative filepaths to check
-   */
-  changedFiles = async (templateDir: string, files: string[]): Promise<string[]> => {
+  changedFiles = async (templates: FileInfo[], files: string[]): Promise<string[]> => {
     let changedFiles: string[] = [];
 
     for await (const file of files) {
-      const templateFilePath: string = path.join(__dirname, templateDir, file);
       const targetFilePath: string = path.join(process.cwd(), file);
+      const templateFile = templates.find((temp: FileInfo) => temp.filename.split(/\/[JT]S\//)[1] === file);
+      
+      await readFile(targetFilePath)
+        .then((content) => {
+          if(templateFile === undefined){ 
+            throw new Error(`Missing template file ${file}`)
+          }
 
-      const templatePromise = fsPromises.readFile(templateFilePath);
-      const targetPromise = fsPromises.readFile(targetFilePath);
-
-      await Promise.all([templatePromise, targetPromise])
-        .then((values) => {
-          if(values[0] !== values[1]){
+          if(content.toString() !== templateFile.content){
             changedFiles.push(file);
           }
         })
-        .catch(err => { console.log(err); })
+        .catch(err => { console.log(err); });
     }
 
     return changedFiles;
   }
 
-  // checkFileType
-  // checkFiles
-  // validate
+  determineLanguage = async (directory: string): Promise<string> => {
+    const srcFiles = await readdir(directory);
+    const filteredFiles = srcFiles.filter(file => path.extname(file).match(/\.[tj]sx?$/));
+    const extension = path.extname(filteredFiles[0]);
+
+    return extension === '.js' 
+      ? "JS"
+      : "TS"
+  }
 }
