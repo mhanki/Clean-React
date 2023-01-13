@@ -2,7 +2,7 @@ import dir from '../directory.js'
 
 const writeFile = (path, data) => new Promise((resolve, reject) => {
   setTimeout(() => {
-    dir.set({...dir.get(), [path]: data})
+    dir.setOne(path, data);
     resolve()
   }, 100)
 })
@@ -14,7 +14,6 @@ const readdir = (directory) => new Promise((resolve, reject) => {
   }, 100)
 })
 
-
 const readFile = (path) => new Promise((resolve, reject) => {
     const keys = path.split('/').splice(6);
     let obj = dir.get();
@@ -23,7 +22,14 @@ const readFile = (path) => new Promise((resolve, reject) => {
       obj = obj[key]
     }
 
-    resolve(obj)
+    resolve(obj);
 })
 
-export { writeFile, readdir, readFile }
+const unlink = (path) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    dir.remove(path)
+    resolve();
+  }, 100)
+})
+
+export { writeFile, readdir, readFile, unlink }
