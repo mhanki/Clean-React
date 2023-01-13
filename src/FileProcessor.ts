@@ -3,7 +3,6 @@ import { writeFile, unlink } from 'fs/promises'
 import { FileInfo } from './FileInfo';
 
 export class FileProcessor {
-
   readFiles = (paths: string[]): FileInfo[] => {
     const files = paths.map((path) => ({
       "filename": path,
