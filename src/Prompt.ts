@@ -9,7 +9,7 @@ enum MessageType {
 };
 
 export class Prompt {
-  message = (messages: string[], type: string = 'INFO'): void => {
+  message = (messages: string[], type: keyof typeof MessageType = 'INFO'): void => {
     const color = MessageType[type];
     messages.forEach( message => console.log(chalk[color](message)) )
   };
