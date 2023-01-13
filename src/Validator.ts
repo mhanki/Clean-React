@@ -49,4 +49,26 @@ export class Validator {
       ? "JS"
       : "TS"
   }
+
+  getTemplatePaths = (dirPath: string): string[] => {
+    let paths: string[] = [];
+  
+    const _getPaths = (dirPath: string): void => {
+      const filesInDirectory = fs.readdirSync(dirPath);
+    
+      for(const file of filesInDirectory) {
+        const filePath = path.join(dirPath, file);
+    
+        if(fs.statSync(filePath).isDirectory()) {
+            _getPaths(filePath);
+        } else {
+            paths.push(filePath);
+        }
+      }
+    }
+  
+    _getPaths(dirPath);
+  
+    return paths;
+  }
 }
