@@ -28,9 +28,7 @@ describe('Validator.findMissingDirs', () => {
 describe('Validator.removedFiles', () => {
   it('returns an array of removed files', () => {
     dir.set({
-      "src": {
-        "test.js": "content"
-      },
+      "src": { },
       "index.js": "content"
     });
 
