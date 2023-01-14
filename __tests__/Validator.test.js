@@ -9,7 +9,7 @@ afterEach(() => {
   dir.reset();
 });
 
-const FileValidator = new Validator();
+const fileValidator = new Validator();
 
 describe('Validator.findMissingDirs', () => {
   it('returns an array of missing directories', () => {
@@ -19,7 +19,7 @@ describe('Validator.findMissingDirs', () => {
     });
 
     const dirsToFind = ['src', 'public', 'node_modules'];
-    const missingDirs = FileValidator.findMissingDirs(dirsToFind);
+    const missingDirs = fileValidator.findMissingDirs(dirsToFind);
     
     expect(missingDirs).toEqual(['public', 'node_modules']);
   })
@@ -34,7 +34,7 @@ describe('Validator.removedFiles', () => {
 
     const filesToFind = ['index.js', 'src/test.js'];
 
-    const removedFiles = FileValidator.removedFiles('', filesToFind);
+    const removedFiles = fileValidator.removedFiles('', filesToFind);
 
     expect(removedFiles).toEqual(['src/test.js']);
   })
@@ -60,8 +60,8 @@ describe('Validator.changedFiles', () => {
       },
     ];
     
-    const filesToCheck = ['src/App.js', 'src/App.css'];
-    const changedFiles = await FileValidator.changedFiles(templates, filesToCheck);
+    const targetDir = '';
+    const changedFiles = await fileValidator.changedFiles(templates, targetDir);
 
     expect(changedFiles).toEqual(['src/App.js']);
   })
@@ -76,7 +76,7 @@ describe('Validator.determineLanguage', () => {
       }
     })
 
-    const language = await FileValidator.determineLanguage('src');
+    const language = await fileValidator.determineLanguage('src');
     
     expect(language).toEqual('TS');
   })

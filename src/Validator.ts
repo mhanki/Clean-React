@@ -17,24 +17,27 @@ export class Validator {
     return !fs.existsSync(filePath);
   });
 
-  changedFiles = async (templates: FileInfo[], files: string[]): Promise<string[]> => {
+  /**
+   * Looks for files in target dir and compares their content to a template
+   * @param templates 
+   * @param targetDir 
+   * @returns Array with the names of modified files
+   */
+  changedFiles = async (templates: FileInfo[], tagetDir: string): Promise<string[]> => {
     let changedFiles: string[] = [];
 
-    for await (const file of files) {
-      const targetFilePath: string = path.join(process.cwd(), file);
-      const templateFile = templates.find((temp: FileInfo) => temp.path.split(/\/[JT]S\//)[1] === file);
-      
-      await readFile(targetFilePath)
-        .then((content) => {
-          if(templateFile === undefined){ 
-            throw new Error(`Missing template file ${file}`)
-          }
+    for await (const file of templates) {
+      const target = path.join(tagetDir, file.path.split(/\/[JT]S\//)[1]);
 
-          if(content.toString() !== templateFile.content){
-            changedFiles.push(file);
-          }
-        })
-        .catch(err => { console.log(err); });
+      if(fs.existsSync(target)){
+        await readFile(target)
+          .then((content) => {
+            if(content.toString() !== file.content){
+              changedFiles.push(target);
+            }
+          })
+          .catch(err => { console.log(err); });
+      }
     }
 
     return changedFiles;

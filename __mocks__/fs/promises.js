@@ -15,7 +15,7 @@ const readdir = (directory) => new Promise((resolve, reject) => {
 })
 
 const readFile = (path) => new Promise((resolve, reject) => {
-    const keys = path.split('/').splice(6);
+    const keys = path.split('/');
     let obj = dir.get();
 
     for(let key of keys) {
