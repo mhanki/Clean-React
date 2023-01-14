@@ -22,6 +22,12 @@ describe('Prompt.message', () => {
     expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining(message));
   });
 
+  it('prints multiple messages at once', () => {
+    const messages = ['Hello there', 'How are you doing today?'];
+    UserPrompt.message(messages);
+    expect(consoleSpy).toBeCalledTimes(messages.length + 1); // adds empty line print
+  });
+
   /* it('prints a message in custom colors', () => {
     jest.mock('chalk', () => ({
       green: jest.fn(),
@@ -32,12 +38,6 @@ describe('Prompt.message', () => {
 
     expect(chalk.yellow).toBeCalledTimes(1);
   }); */
-
-  it('prints multiple messages at once', () => {
-    const messages = ['Hello there', 'How are you doing today?'];
-    UserPrompt.message(messages);
-    expect(consoleSpy).toBeCalledTimes(messages.length);
-  });
 })
 
 describe('Prompt.permission', () => {

@@ -12,6 +12,7 @@ export class Prompt {
   message = (messages: string[], type: keyof typeof MessageType = 'INFO'): void => {
     const color = MessageType[type];
     messages.forEach( message => console.log(chalk[color](message)) )
+    console.log('')
   };
 
   permission = async (message: string): Promise<boolean> => {
@@ -26,10 +27,11 @@ export class Prompt {
       })
     };
   
-    const answer = await question(`${message} (y/n) `);
+    const answer = await question(chalk.green(`${message} (y/n) `));
     const permission = answer.toLowerCase() == 'y';
 
     rl.close();
+    console.log('');
 
     return permission;
   }
