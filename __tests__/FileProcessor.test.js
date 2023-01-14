@@ -25,7 +25,7 @@ describe('FileProcessor.readFiles', () => {
     const readFiles = fileProcessor.readFiles(files);
 
     expect(readFiles).toEqual(files.map(file => ({
-      "filename": file,
+      "path": file,
       "content": dir.getOne(file)
     })));
   })
@@ -40,9 +40,9 @@ describe('FileProcessor.rewriteOne', () => {
     };
 
     dir.set(directory);
-    const newFile = { filename: "src/index.js", content: "content" };
+    const newFile = { path: "src/index.js", content: "content" };
     
-    expect(fs.existsSync(newFile.filename)).toBe(false);
+    expect(fs.existsSync(newFile.path)).toBe(false);
 
     await fileProcessor.rewriteOne(newFile);
 
@@ -62,7 +62,7 @@ describe('FileProcessor.rewriteOne', () => {
     };
 
     dir.set(directory);
-    const updatedFile = { filename: "src/App.js", content: "updated content" }
+    const updatedFile = { path: "src/App.js", content: "updated content" }
 
     expect(fs.existsSync("src/App.js")).toBe(true);
 
@@ -86,8 +86,8 @@ describe('FileProcessor.rewriteAll', () => {
     });
 
     const files = [
-      {"filename": "src/App.js", "content": "updated content"},
-      {"filename": "index.js", "content": "new file"}
+      {"path": "src/App.js", "content": "updated content"},
+      {"path": "index.js", "content": "new file"}
     ];
 
     await Promise.all(fileProcessor.rewriteAll(files));

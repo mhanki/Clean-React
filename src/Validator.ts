@@ -1,6 +1,6 @@
+import path from 'path';
 import fs from 'fs';
 import { readFile, readdir } from 'fs/promises'
-import path from 'path';
 import { FileInfo } from './FileInfo';
 
 export class Validator {
@@ -22,7 +22,7 @@ export class Validator {
 
     for await (const file of files) {
       const targetFilePath: string = path.join(process.cwd(), file);
-      const templateFile = templates.find((temp: FileInfo) => temp.filename.split(/\/[JT]S\//)[1] === file);
+      const templateFile = templates.find((temp: FileInfo) => temp.path.split(/\/[JT]S\//)[1] === file);
       
       await readFile(targetFilePath)
         .then((content) => {
@@ -50,7 +50,7 @@ export class Validator {
       : "TS"
   }
 
-  getTemplatePaths = (dirPath: string): string[] => {
+  getPaths = (dirPath: string): string[] => {
     let paths: string[] = [];
   
     const _getPaths = (dirPath: string): void => {

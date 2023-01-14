@@ -51,11 +51,11 @@ describe('Validator.changedFiles', () => {
 
     const templates = [
       {
-        "filename": "templates/JS/src/App.js",
+        "path": "templates/JS/src/App.js",
         "content": "content"
       },
       {
-        "filename": "templates/JS/src/App.css",
+        "path": "templates/JS/src/App.css",
         "content": "same content"
       },
     ];

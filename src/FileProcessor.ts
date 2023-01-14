@@ -5,17 +5,17 @@ import { FileInfo } from './FileInfo';
 export class FileProcessor {
   readFiles = (paths: string[]): FileInfo[] => {
     const files = paths.map((path) => ({
-      "filename": path,
+      "path": path,
       "content": fs.readFileSync(path).toString()
     }));
   
     return files;
   }
 
-  rewriteOne = (file: FileInfo): Promise<void> => writeFile(file.filename, file.content);
+  rewriteOne = (file: FileInfo): Promise<void> => writeFile(file.path, file.content);
 
   rewriteAll = (files: FileInfo[]): Promise<void>[]=> files.map(file => 
-    writeFile(file.filename, file.content)
+    writeFile(file.path, file.content)
   );
 
   removeOne = (path: string): Promise<void> => unlink(path);
