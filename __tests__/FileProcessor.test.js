@@ -1,6 +1,7 @@
 import dir from '../__mocks__/directory.js';
 import fs from '../__mocks__/fs.js';
 import { FileProcessor } from '../src/FileProcessor';
+import path from 'path';
 
 jest.mock('fs');
 jest.mock('fs/promises');
@@ -10,6 +11,38 @@ afterEach(() => {
 });
 
 const fileProcessor = new FileProcessor();
+
+describe('FileProcessor.getRelativePath', () => {
+  it('returns a path relative to a given splitter', () => {
+    const filePath = path.join(__dirname, 'src/App.js');
+
+    const relativePath = fileProcessor.getRelativePath(filePath, __dirname + '/');
+    expect(relativePath).toEqual('src/App.js');
+  });
+
+  it('accepts and converts a single path or an array of paths', () => {
+    const filePaths = [
+      path.join(__dirname, 'src/App.js'),
+      path.join(__dirname, 'src/App.css')
+    ];
+
+    const singlePath = fileProcessor.getRelativePath(filePaths[0], __dirname + '/');
+    const multiPaths = fileProcessor.getRelativePath(filePaths, __dirname + '/');
+    expect(singlePath).toEqual('src/App.js');
+    expect(multiPaths).toEqual(['src/App.js', 'src/App.css']);
+  });
+
+  it('accepts a string or regex as the splitter', () => {
+    const filePath = path.join(__dirname, 'JS', 'src/App.js');
+    const regex = new RegExp(/\/[JT]S\//);
+
+    const stringSplit = fileProcessor.getRelativePath(filePath, __dirname + '/');
+    const regexSplit = fileProcessor.getRelativePath(filePath, regex);
+
+    expect(stringSplit).toEqual('JS/src/App.js');
+    expect(regexSplit).toEqual('src/App.js');
+  })
+})
 
 describe('FileProcessor.readFiles', () => {
   it('returns array with filenames and their contents', () => {

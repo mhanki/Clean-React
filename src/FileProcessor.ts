@@ -3,7 +3,13 @@ import { writeFile, unlink } from 'fs/promises'
 import { FileInfo } from './FileInfo';
 
 export class FileProcessor {
-  readFiles = (paths: string[]): FileInfo[] => {
+  getRelativePath(paths: string[] | string, splitter: string | RegExp): string[] | string{
+    return Array.isArray(paths)
+      ? paths.map(path => path.split(splitter)[1])
+      : paths.split(splitter)[1]
+  }
+
+  readFiles = (paths: string[], dir: string): FileInfo[] => {
     const files = paths.map((path) => ({
       "path": path,
       "content": fs.readFileSync(path).toString()
