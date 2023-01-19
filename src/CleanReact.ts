@@ -16,7 +16,7 @@ export class CleanReact {
     this.targetDir = dir;
   }
   
-  TEMPLATES_DIR = `${__dirname}/templates/`;
+  TEMPLATES_DIR = path.join(__dirname, '..', '..', 'templates');
 
   async isDirCraProject(): Promise<boolean> {
     let result: boolean = true;
