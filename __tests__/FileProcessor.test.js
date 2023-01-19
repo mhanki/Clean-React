@@ -12,6 +12,23 @@ afterEach(() => {
 
 const fileProcessor = new FileProcessor();
 
+describe('FileProcessor.getFilePaths', () => {
+  it('things happen', () => {
+    dir.set({
+      "project": {
+        "index.js": "content",
+        "src": {
+          "App.js": "content"
+        }
+      }
+    })
+
+    const filePaths = fileProcessor.getFilePaths('project');
+    expect(filePaths).toEqual(['index.js', 'src/App.js']);
+  })
+
+})
+
 describe('FileProcessor.getRelativePath', () => {
   it('returns a path relative to a given splitter', () => {
     const filePath = path.join(__dirname, 'src/App.js');
@@ -45,22 +62,34 @@ describe('FileProcessor.getRelativePath', () => {
 })
 
 describe('FileProcessor.readFiles', () => {
-  it('returns array with filenames and their contents', () => {
-    dir.set({
-      "src": {
-        "App.js": "App.js content"
+  it('returns array of objects containing file path, relative path and content', () => {
+    const directory = {
+      "project": {
+        "src": {
+          "App.js": "App.js content"
+        },
+        "index.js": "index.js content"
+      }
+    };
+
+    dir.set(directory);
+
+    const files = ["src/App.js", 'index.js'];
+
+    const readFiles = fileProcessor.readFiles(files, 'project');
+
+    expect(readFiles).toEqual([
+      {
+        "path": "project/src/App.js",
+        "relPath": "src/App.js",
+        "content": "App.js content"
       },
-      "index.js": "index.js content"
-    })
-
-    const files = ["src/App.js", "index.js"];
-
-    const readFiles = fileProcessor.readFiles(files);
-
-    expect(readFiles).toEqual(files.map(file => ({
-      "path": file,
-      "content": dir.getOne(file)
-    })));
+      {
+        "path": "project/index.js",
+        "relPath": "index.js",
+        "content": "index.js content"
+      }
+    ]);
   })
 })
 
@@ -134,6 +163,34 @@ describe('FileProcessor.rewriteAll', () => {
   })
 })
 
+describe('FileProcessor.writeAll', () => {
+  it('writes an array of files to a given directory', async() => {
+    dir.set({
+      "project": {
+        "src": {
+          "App.js": "content"
+        }
+      }
+    });
+
+    const files = [
+      {"path": "template/src/App.js", "relPath": "src/App.js", "content": "updated content"},
+      {"path": "template/index.js", "relPath": "index.js", "content": "new file"}
+    ];
+
+    await Promise.all(fileProcessor.writeAll(files, 'project'));
+
+    expect(dir.get()).toEqual({
+      "project": {
+        "src": {
+          "App.js": "updated content"
+        },
+        "index.js": "new file"
+      }
+    })
+  })
+})
+
 describe("FileProcessor.removeOne", () => {
   it("succesfully removes existing file", async () => {
     dir.set({
@@ -166,7 +223,7 @@ describe("FileProcessor.removeAll", () => {
     expect(fs.existsSync(filePaths[0])).toBe(true);
     expect(fs.existsSync(filePaths[1])).toBe(true);
 
-    await Promise.all(fileProcessor.removeAll(filePaths));
+    await Promise.all(fileProcessor.removeAll(filePaths, ''));
 
     expect(dir.get()).toEqual({ "src": {}});
   })
