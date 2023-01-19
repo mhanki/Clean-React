@@ -1,4 +1,3 @@
 node_modules
 *.drawio
-src/templates/custom
-src/js-files
+templates/custom
