@@ -21,20 +21,18 @@ export class CleanReact {
   async isDirCraProject(): Promise<boolean> {
     let result: boolean = true;
   
-    // Find missing directories
     const craDirectories = ['src', 'public'].map(dir => path.join(this.targetDir, dir));
     const missingDirs = validator.findMissingDirs(craDirectories);
     
-    // Print warning if dirs are missing
     if(missingDirs.length > 0) {
       const message = [
-        "It seems your project is missing the following sub-directories:",
-        ...missingDirs.map(dir => "- " + dir)
+        `${Symbol.WARNING}\xa0\xa0\xa0It seems your project is missing the following Create React App sub-directories:`,
+        ...missingDirs.map(dir => "\xa0\xa0\xa0- " + dir)
       ];
       consolePrompt.message(message, "WARNING");
   
       // Prompt for permission to proceed
-      await consolePrompt.permission("Are you sure you want to proceed?")
+      await consolePrompt.permission("Are you sure you want to proceed?", "WARNING")
         .then(val => result = val);
     }
   
@@ -51,13 +49,13 @@ export class CleanReact {
   
     if(files.length > 0) {
       const message = [
-        "The following files have already been changed:",
-        ...files.map(file => "- " + file)
+        "The following files already contain changes to the original CRA template:",
+        ...files.map(file => "\xa0\xa0- " + file)
       ];
     
       consolePrompt.message(message, "WARNING");
   
-      const permission = await consolePrompt.permission("Do you want to discard all changes?");
+      const permission = await consolePrompt.permission("Do you want to discard all previous changes?");
 
       if(!permission) {
         for await (const file of files) {
@@ -79,8 +77,10 @@ export class CleanReact {
   async run(){
     const startMessage = [`Cleaning... ${Symbol.CLEANING}`];
     consolePrompt.message(startMessage);
+
+    const proceed = await this.isDirCraProject();
     
-    if(!this.isDirCraProject()) {
+    if(!proceed) {
       return;
     }
     

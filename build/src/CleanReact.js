@@ -36,18 +36,16 @@ class CleanReact {
     isDirCraProject() {
         return __awaiter(this, void 0, void 0, function* () {
             let result = true;
-            // Find missing directories
             const craDirectories = ['src', 'public'].map(dir => path_1.default.join(this.targetDir, dir));
             const missingDirs = validator.findMissingDirs(craDirectories);
-            // Print warning if dirs are missing
             if (missingDirs.length > 0) {
                 const message = [
-                    "It seems your project is missing the following sub-directories:",
-                    ...missingDirs.map(dir => "- " + dir)
+                    `${Symbol_1.Symbol.WARNING}\xa0\xa0\xa0It seems your project is missing the following Create React App sub-directories:`,
+                    ...missingDirs.map(dir => "\xa0\xa0\xa0- " + dir)
                 ];
                 consolePrompt.message(message, "WARNING");
                 // Prompt for permission to proceed
-                yield consolePrompt.permission("Are you sure you want to proceed?")
+                yield consolePrompt.permission("Are you sure you want to proceed?", "WARNING")
                     .then(val => result = val);
             }
             return result;
@@ -65,10 +63,10 @@ class CleanReact {
             if (files.length > 0) {
                 const message = [
                     "The following files have already been changed:",
-                    ...files.map(file => "- " + file)
+                    ...files.map(file => "\xa0\xa0- " + file)
                 ];
                 consolePrompt.message(message, "WARNING");
-                const permission = yield consolePrompt.permission("Do you want to discard all changes?");
+                const permission = yield consolePrompt.permission("Do you want to discard all previous changes?");
                 if (!permission) {
                     try {
                         for (_a = true, files_1 = __asyncValues(files); files_1_1 = yield files_1.next(), _b = files_1_1.done, !_b;) {
@@ -106,7 +104,8 @@ class CleanReact {
         return __awaiter(this, void 0, void 0, function* () {
             const startMessage = [`Cleaning... ${Symbol_1.Symbol.CLEANING}`];
             consolePrompt.message(startMessage);
-            if (!this.isDirCraProject()) {
+            const proceed = yield this.isDirCraProject();
+            if (!proceed) {
                 return;
             }
             const language = yield validator.determineLanguage(path_1.default.join(this.targetDir, 'src'));

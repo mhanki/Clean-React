@@ -18,7 +18,7 @@ const readline_1 = __importDefault(require("readline"));
 const b = chalk_1.default.bold;
 var MessageType;
 (function (MessageType) {
-    MessageType["INFO"] = "green";
+    MessageType["INFO"] = "cyan";
     MessageType["WARNING"] = "yellow";
 })(MessageType || (MessageType = {}));
 ;
@@ -29,7 +29,7 @@ class Prompt {
             messages.forEach(message => console.log(chalk_1.default[color](message)));
             console.log('');
         };
-        this.permission = (message) => __awaiter(this, void 0, void 0, function* () {
+        this.permission = (message, type = 'INFO') => __awaiter(this, void 0, void 0, function* () {
             const rl = readline_1.default.createInterface({
                 input: process.stdin,
                 output: process.stdout,
@@ -40,7 +40,8 @@ class Prompt {
                 });
             }
             ;
-            const answer = yield question(chalk_1.default.green(`${message} (y/n) `));
+            const color = MessageType[type];
+            const answer = yield question(chalk_1.default[color](`${message} (y/n) `));
             const permission = answer.toLowerCase() == 'y';
             rl.close();
             console.log('');

@@ -4,7 +4,7 @@ import readline from 'readline';
 const b = chalk.bold;
 
 enum MessageType {
-  INFO = 'green',
+  INFO = 'cyan',
   WARNING = 'yellow'
 };
 
@@ -15,7 +15,7 @@ export class Prompt {
     console.log('')
   };
 
-  permission = async (message: string): Promise<boolean> => {
+  permission = async (message: string, type: keyof typeof MessageType = 'INFO'): Promise<boolean> => {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -27,7 +27,8 @@ export class Prompt {
       })
     };
   
-    const answer = await question(chalk.green(`${message} (y/n) `));
+    const color = MessageType[type];
+    const answer = await question(chalk[color](`${message} (y/n) `));
     const permission = answer.toLowerCase() == 'y';
 
     rl.close();
