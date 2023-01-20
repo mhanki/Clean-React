@@ -76,6 +76,9 @@ class Validator {
         }); };
         this.determineLanguage = (directory) => __awaiter(this, void 0, void 0, function* () {
             const srcFiles = yield (0, promises_1.readdir)(directory);
+            if (srcFiles.length === 0) {
+                return "JS";
+            }
             const filteredFiles = srcFiles.filter(file => path_1.default.extname(file).match(/\.[tj]sx?$/));
             const extension = path_1.default.extname(filteredFiles[0]);
             return extension === '.js'

@@ -25,6 +25,7 @@ const Validator_1 = require("./Validator");
 const FileProcessor_1 = require("./FileProcessor");
 const Symbol_1 = require("./Symbol");
 const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const consolePrompt = new Prompt_1.Prompt();
 const validator = new Validator_1.Validator();
 const fileProcessor = new FileProcessor_1.FileProcessor();
@@ -62,7 +63,7 @@ class CleanReact {
             let keep = [];
             if (files.length > 0) {
                 const message = [
-                    "The following files have already been changed:",
+                    "The following files already contain changes to the original CRA template:",
                     ...files.map(file => "\xa0\xa0- " + file)
                 ];
                 consolePrompt.message(message, "WARNING");
@@ -109,9 +110,13 @@ class CleanReact {
                 return;
             }
             const language = yield validator.determineLanguage(path_1.default.join(this.targetDir, 'src'));
-            const templateType = 'default'; // Check config here
+            const templateType = process.argv[2] ? process.argv[2] : 'default';
+            const templateFolder = path_1.default.join(this.TEMPLATES_DIR, templateType, language);
+            if (!fs_1.default.existsSync(templateFolder)) {
+                return consolePrompt.message(["The template folder doesn't exist", templateFolder]);
+            }
             const craTemplates = this.getFiles(path_1.default.join(this.TEMPLATES_DIR, 'cra', language));
-            const templates = this.getFiles(path_1.default.join(this.TEMPLATES_DIR, templateType, language));
+            const templates = this.getFiles(templateFolder);
             const targetPaths = fileProcessor.getFilePaths(this.targetDir); //  + "/public"
             const modifiedFiles = yield validator.changedFiles(craTemplates, this.targetDir);
             const filesToKeep = yield this.getFilesToKeep(modifiedFiles);

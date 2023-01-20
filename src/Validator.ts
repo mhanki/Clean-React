@@ -45,6 +45,10 @@ export class Validator {
 
   determineLanguage = async (directory: string): Promise<string> => {
     const srcFiles = await readdir(directory);
+    if(srcFiles.length === 0) {
+      return "JS"
+    }
+    
     const filteredFiles = srcFiles.filter(file => path.extname(file).match(/\.[tj]sx?$/));
     const extension = path.extname(filteredFiles[0]);
 

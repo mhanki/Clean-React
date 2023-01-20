@@ -4,6 +4,7 @@ import { FileProcessor } from './FileProcessor';
 import { Symbol } from './Symbol';
 import { FileInfo } from './FileInfo';
 import path from 'path';
+import fs from 'fs';
 
 const consolePrompt = new Prompt();
 const validator = new Validator();
@@ -85,11 +86,17 @@ export class CleanReact {
     }
     
     const language: string = await validator.determineLanguage(path.join(this.targetDir,'src'));
-    const templateType = 'default'; // Check config here
+    const templateType = process.argv[2] ? process.argv[2] : 'default';
+
+    const templateFolder = path.join(this.TEMPLATES_DIR, templateType, language);
+
+    if(!fs.existsSync(templateFolder)){
+      return consolePrompt.message(["The template folder doesn't exist", templateFolder]);
+    }
 
     const craTemplates: FileInfo[] = this.getFiles(path.join(this.TEMPLATES_DIR, 'cra', language));
     
-    const templates: FileInfo[] = this.getFiles(path.join(this.TEMPLATES_DIR, templateType, language));
+    const templates: FileInfo[] = this.getFiles(templateFolder);
     const targetPaths: string[] = fileProcessor.getFilePaths(this.targetDir); //  + "/public"
     
     const modifiedFiles: string[] = await validator.changedFiles(craTemplates, this.targetDir);
@@ -109,6 +116,5 @@ export class CleanReact {
 
     const endMessage = [`${Symbol.STARS} All done! ${Symbol.STARS}`, " Happy coding!"];
     consolePrompt.message(endMessage);
-        
   }
 }
