@@ -1,8 +1,6 @@
 import chalk from 'chalk';
 import readline from 'readline';
 
-const b = chalk.bold;
-
 enum MessageType {
   INFO = 'cyan',
   WARNING = 'yellow'

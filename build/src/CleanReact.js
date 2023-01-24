@@ -20,12 +20,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CleanReact = void 0;
+const path_1 = __importDefault(require("path"));
 const Prompt_1 = require("./Prompt");
 const Validator_1 = require("./Validator");
 const FileProcessor_1 = require("./FileProcessor");
 const Symbol_1 = require("./Symbol");
-const path_1 = __importDefault(require("path"));
-const fs_1 = __importDefault(require("fs"));
 const consolePrompt = new Prompt_1.Prompt();
 const validator = new Validator_1.Validator();
 const fileProcessor = new FileProcessor_1.FileProcessor();
@@ -45,7 +44,6 @@ class CleanReact {
                     ...missingDirs.map(dir => "\xa0\xa0\xa0- " + dir)
                 ];
                 consolePrompt.message(message, "WARNING");
-                // Prompt for permission to proceed
                 yield consolePrompt.permission("Are you sure you want to proceed?", "WARNING")
                     .then(val => result = val);
             }
@@ -110,23 +108,24 @@ class CleanReact {
                 return;
             }
             const language = yield validator.determineLanguage(path_1.default.join(this.targetDir, 'src'));
-            const templateType = process.argv[2] ? process.argv[2] : 'default';
+            const templateType = 'default';
+            // const templateType = process.argv[2] ? process.argv[2] : 'default';
             const templateFolder = path_1.default.join(this.TEMPLATES_DIR, templateType, language);
-            if (!fs_1.default.existsSync(templateFolder)) {
-                return consolePrompt.message(["The template folder doesn't exist", templateFolder]);
-            }
+            /* if(!fs.existsSync(templateFolder)){
+              return consolePrompt.message(["The template folder doesn't exist", templateFolder]);
+            } */
             const craTemplates = this.getFiles(path_1.default.join(this.TEMPLATES_DIR, 'cra', language));
             const templates = this.getFiles(templateFolder);
-            const targetPaths = fileProcessor.getFilePaths(this.targetDir); //  + "/public"
+            const targetPaths = fileProcessor.getFilePaths(this.targetDir);
             const modifiedFiles = yield validator.changedFiles(craTemplates, this.targetDir);
             const filesToKeep = yield this.getFilesToKeep(modifiedFiles);
-            let removeFiles = targetPaths
-                .filter(file => craTemplates.find(template => template.relPath === file))
-                .filter(file => !templates.find(template => template.relPath === file));
-            let write = templates.filter(template => !filesToKeep.includes(template.relPath));
-            yield Promise.all(fileProcessor.writeAll(write, this.targetDir));
-            removeFiles.filter(file => !filesToKeep.includes(file));
-            yield Promise.all(fileProcessor.removeAll(removeFiles, this.targetDir));
+            const filesToRemove = targetPaths
+                .filter(targetPath => craTemplates.find(template => template.relPath === targetPath))
+                .filter(targetPath => !templates.find(template => template.relPath === targetPath))
+                .filter(targetPath => !filesToKeep.includes(targetPath));
+            const filesToRewrite = templates.filter(template => !filesToKeep.includes(template.relPath));
+            yield Promise.all(fileProcessor.writeAll(filesToRewrite, this.targetDir));
+            yield Promise.all(fileProcessor.removeAll(filesToRemove, this.targetDir));
             const endMessage = [`${Symbol_1.Symbol.STARS} All done! ${Symbol_1.Symbol.STARS}`, " Happy coding!"];
             consolePrompt.message(endMessage);
         });

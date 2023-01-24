@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prompt = void 0;
 const chalk_1 = __importDefault(require("chalk"));
 const readline_1 = __importDefault(require("readline"));
-const b = chalk_1.default.bold;
 var MessageType;
 (function (MessageType) {
     MessageType["INFO"] = "cyan";
