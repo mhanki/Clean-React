@@ -35,6 +35,7 @@ export class FileProcessor {
   readFiles = (files: string[], dir: string): FileInfo[] => {
     const fileInfos = files.map((file) => {
       const filePath = dir + '/' + file;
+
       return {
         "path": filePath,
         "relPath": file,
@@ -51,9 +52,12 @@ export class FileProcessor {
     writeFile(file.path, file.content)
   );
 
-  writeAll = (files: FileInfo[], dir: string): Promise<void>[]=> files.map(file => 
-    writeFile(path.join(dir, file.relPath), file.content)
-  );
+  writeAll = (files: FileInfo[], dir: string): Promise<void>[]=> files.map(file => {
+    if(file.relPath.match(/^git\w*/)){
+      file.relPath = '.' + file.relPath;
+    }
+    return writeFile(path.join(dir, file.relPath), file.content)
+  });
 
   removeOne = (filePath: string): Promise<void> => unlink(filePath);
 

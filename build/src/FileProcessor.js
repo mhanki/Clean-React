@@ -39,7 +39,12 @@ class FileProcessor {
         };
         this.rewriteOne = (file) => (0, promises_1.writeFile)(file.path, file.content);
         this.rewriteAll = (files) => files.map(file => (0, promises_1.writeFile)(file.path, file.content));
-        this.writeAll = (files, dir) => files.map(file => (0, promises_1.writeFile)(path_1.default.join(dir, file.relPath), file.content));
+        this.writeAll = (files, dir) => files.map(file => {
+            if (file.relPath.match(new RegExp(/^git\w*/))) {
+                file.relPath = '.' + file.relPath;
+            }
+            return (0, promises_1.writeFile)(path_1.default.join(dir, file.relPath), file.content);
+        });
         this.removeOne = (filePath) => (0, promises_1.unlink)(filePath);
         this.removeAll = (paths, dir) => paths.map(filePath => this.removeOne(path_1.default.join(dir, filePath)));
     }
