@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { writeFile, unlink } from 'fs/promises'
+import { writeFile, unlink } from 'fs/promises';
 import { FileInfo } from './FileInfo';
 
 export class FileProcessor {
@@ -40,7 +40,7 @@ export class FileProcessor {
         "path": filePath,
         "relPath": file,
         "content": fs.readFileSync(filePath).toString()
-      }
+      };
     });
   
     return fileInfos;
@@ -56,7 +56,7 @@ export class FileProcessor {
     if(file.relPath.match(/^git\w*/)){
       file.relPath = '.' + file.relPath;
     }
-    return writeFile(path.join(dir, file.relPath), file.content)
+    return writeFile(path.join(dir, file.relPath), file.content);
   });
 
   removeOne = (filePath: string): Promise<void> => unlink(filePath);

@@ -6,14 +6,16 @@ enum MessageType {
   WARNING = 'yellow'
 };
 
+type MessageTypeKey = keyof typeof MessageType;
+
 export class Prompt {
-  message = (messages: string[], type: keyof typeof MessageType = 'INFO'): void => {
+  message = (messages: string[], type: MessageTypeKey = 'INFO'): void => {
     const color = MessageType[type];
-    messages.forEach( message => console.log(chalk[color](message)) )
-    console.log('')
+    messages.forEach(message => console.log(chalk[color](message)));
+    console.log('');
   };
 
-  permission = async (message: string, type: keyof typeof MessageType = 'INFO'): Promise<boolean> => {
+  permission = async (message: string, type: MessageTypeKey = 'INFO'): Promise<boolean> => {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -21,7 +23,7 @@ export class Prompt {
   
     function question(query: string) {
       return new Promise<string>(resolve => {
-          rl.question(query, resolve)
+        rl.question(query, resolve)
       })
     };
   

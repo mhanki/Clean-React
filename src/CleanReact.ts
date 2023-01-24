@@ -10,14 +10,13 @@ const validator = new Validator();
 const fileProcessor = new FileProcessor();
 
 export class CleanReact {
+  TEMPLATES_DIR = path.join(__dirname, '..', '..', 'templates');
   targetDir: string;
 
   constructor(dir: string) {
     this.targetDir = dir;
   }
   
-  TEMPLATES_DIR = path.join(__dirname, '..', '..', 'templates');
-
   async isDirCraProject(): Promise<boolean> {
     let result: boolean = true;
   
@@ -29,6 +28,7 @@ export class CleanReact {
         `${Symbol.WARNING}\xa0\xa0\xa0It seems your project is missing the following Create React App sub-directories:`,
         ...missingDirs.map(dir => "\xa0\xa0\xa0- " + dir)
       ];
+
       consolePrompt.message(message, "WARNING");
 
       await consolePrompt.permission("Are you sure you want to proceed?", "WARNING")
@@ -59,7 +59,7 @@ export class CleanReact {
       if(!permission) {
         for await (const file of files) {
           const filename = fileProcessor.getRelativePath([file], this.targetDir+'/')[0];
-          const message = "Do you want to keep the changs made to " + filename + "?"
+          const message = "Do you want to keep the changs made to " + filename + "?";
           await consolePrompt.permission(message)
             .then(permission => {
               if(permission) {

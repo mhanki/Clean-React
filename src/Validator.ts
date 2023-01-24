@@ -1,6 +1,6 @@
-import path from 'path';
 import fs from 'fs';
-import { readFile, readdir } from 'fs/promises'
+import path from 'path';
+import { readFile, readdir } from 'fs/promises';
 import { FileInfo } from './FileInfo';
 
 export class Validator {
@@ -46,7 +46,7 @@ export class Validator {
   determineLanguage = async (directory: string): Promise<string> => {
     const srcFiles = await readdir(directory);
     if(srcFiles.length === 0) {
-      return "JS"
+      return "JS";
     }
     
     const filteredFiles = srcFiles.filter(file => path.extname(file).match(/\.[tj]sx?$/));

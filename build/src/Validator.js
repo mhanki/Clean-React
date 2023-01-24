@@ -20,8 +20,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validator = void 0;
-const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const promises_1 = require("fs/promises");
 class Validator {
     constructor() {

@@ -40,7 +40,7 @@ class FileProcessor {
         this.rewriteOne = (file) => (0, promises_1.writeFile)(file.path, file.content);
         this.rewriteAll = (files) => files.map(file => (0, promises_1.writeFile)(file.path, file.content));
         this.writeAll = (files, dir) => files.map(file => {
-            if (file.relPath.match(new RegExp(/^git\w*/))) {
+            if (file.relPath.match(/^git\w*/)) {
                 file.relPath = '.' + file.relPath;
             }
             return (0, promises_1.writeFile)(path_1.default.join(dir, file.relPath), file.content);
