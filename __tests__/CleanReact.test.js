@@ -4,17 +4,10 @@ import { CleanReact } from '../src/CleanReact';
 
 jest.mock('fs');
 jest.mock('fs/promises');
-
-jest.mock('readline', () => ({
-  createInterface: jest.fn().mockReturnValue({
-    question: jest.fn(),
-    close: jest.fn()
-  })
-}))
+jest.mock('readline');
 
 afterEach(() => {
   dir.reset();
-  /* readline.createInterface().question.mockClear() */
 });
 
 const cleanReact = new CleanReact('');

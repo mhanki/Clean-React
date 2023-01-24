@@ -3,7 +3,6 @@ import { Validator } from '../src/Validator.ts';
 
 jest.mock('fs');
 jest.mock('fs/promises');
-jest.mock('readline');
 
 afterEach(() => {
   dir.reset();
