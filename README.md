@@ -4,11 +4,11 @@
 
 Clean React is a CLI tool that removes and modifies some of the boilerplate files that are being generated when initiating a new project with [Create React App](https://create-react-app.dev/).
 
-The tool is designed to provide a clean and minimalistic code base to your new project. It will first check to make sure you actually are in a Create React App project, and then proceed to delete and overwrite files bades on this [template](https://github.com/mhanki/clean-react/tree/master/templates).
+The tool is designed to provide a clean and minimalistic code base to your new project. It will first check to make sure you actually are in a Create React App project, and then proceed to delete and overwrite files [based on these template](https://github.com/mhanki/clean-react/tree/master/templates/default).
 
 Clean React supports cleanup for both default Create React App templates ([JavaScript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template) and [TypeScript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template-typescript)). 
 
-Please note: This is just a quick helper tool. If you find yourself wanting to create and use your own custom template from the get-go, you can actually do that via Create React App itself. Find more information [here](https://create-react-app.dev/docs/custom-templates/).
+Please note: This is just a quick helper tool. If you find yourself wanting to create and use your own custom template from the get-go, you can actually do so via Create React App itself. Find more information [here](https://create-react-app.dev/docs/custom-templates/).
 
 ## Installation
 
@@ -27,4 +27,4 @@ clean-react
 ```
 
 
-If you already modified one or more of the files that Clean React tries to rewrite, it will prompt you with a warning and ask if you want to keep the changes before proceeding.  
+If you already modified one or more of the files that Clean React tries to rewrite, it will prompt you with a warning and ask if you want to keep the changes before it proceeds.  
